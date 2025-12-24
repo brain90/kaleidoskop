@@ -1,0 +1,2062 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Kaleidoskop Indonesia 2024</title>
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link
+            href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap"
+            rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+        <style>
+            * {
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
+            }
+
+            body {
+                font-family: 'Plus Jakarta Sans', sans-serif;
+                background-color: #f8f9fa;
+                color: #333;
+                line-height: 1.6;
+                overflow-x: hidden;
+            }
+
+            .container {
+                max-width: 1200px;
+                margin: 0 auto;
+                padding: 0 20px;
+            }
+
+            header {
+                background: linear-gradient(135deg, #1a2a6c, #b21f1f, #1a2a6c);
+                color: white;
+                padding: 0px 0;
+                text-align: center;
+                position: relative;
+                overflow: hidden;
+            }
+
+            header::before {
+                content: "";
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: url('https://images.unsplash.com/photo-1528722828814-77b9b83aafb2?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80') center/cover;
+                opacity: 0.2;
+                z-index: -1;
+            }
+
+            header h1 {
+                font-family: 'Playfair Display', serif;
+                font-size: 3.5rem;
+                margin-bottom: 15px;
+                letter-spacing: 1px;
+                text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+            }
+
+            header p {
+                font-size: 1.2rem;
+                max-width: 800px;
+                margin: 0 auto;
+                font-weight: 300;
+            }
+
+            .timeline-container {
+                position: relative;
+                padding: 0px 0;
+            }
+
+            .timeline-line {
+                position: absolute;
+                left: 50%;
+                top: 0;
+                bottom: 0;
+                width: 4px;
+                background: linear-gradient(to bottom, #1a2a6c, #b21f1f);
+                transform: translateX(-50%);
+                z-index: 1;
+            }
+
+            .month-separator {
+                text-align: center;
+                margin: 30px 0;
+                position: relative;
+                z-index: 2;
+            }
+
+            .month-label {
+                display: inline-block;
+                background: #1a2a6c;
+                color: white;
+                padding: 10px 30px;
+                border-radius: 30px;
+                font-weight: 500;
+                font-size: 1.2rem;
+                box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            }
+
+            .timeline-event {
+                position: relative;
+                margin-bottom: 50px;
+                z-index: 2;
+                opacity: 0;
+                transform: translateY(30px);
+                transition: all 0.6s ease;
+            }
+
+            .timeline-event.visible {
+                opacity: 1;
+                transform: translateY(0);
+            }
+
+            .event-content {
+                background: white;
+                border-radius: 10px;
+                padding: 25px;
+                width: calc(50% - 40px);
+                box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+                transition: all 0.3s ease;
+                position: relative;
+            }
+
+            .timeline-event:hover .event-content {
+                transform: scale(1.02);
+                box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+            }
+
+            .timeline-event:nth-child(odd) .event-content {
+                margin-left: auto;
+            }
+
+            .event-date {
+                top: 20px;
+                width: 60px;
+                height: 60px;
+                background: #b21f1f;
+                color: white;
+                border-radius: 50%;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                font-weight: bold;
+                box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+                z-index: 3;
+            }
+
+            .timeline-event:nth-child(odd) .event-date {
+                left: -30px;
+            }
+
+            .timeline-event:nth-child(even) .event-date {
+                right: -30px;
+            }
+
+            .event-date .day {
+                font-size: 1.5rem;
+                line-height: 1;
+            }
+
+            .event-date .month {
+                font-size: 0.7rem;
+                text-transform: uppercase;
+            }
+
+            .event-headline {
+                font-size: 1.4rem;
+                font-weight: 700;
+                margin-bottom: 15px;
+                color: #1a2a6c;
+            }
+
+            .event-description {
+                margin-bottom: 20px;
+                color: #555;
+            }
+
+            .event-media {
+                margin-top: 20px;
+                border-radius: 8px;
+                overflow: hidden;
+            }
+
+            .event-media img {
+                width: 100%;
+                height: auto;
+                display: block;
+                transition: transform 0.3s ease;
+            }
+
+            .event-media:hover img {
+                transform: scale(1.05);
+            }
+
+            .media-caption {
+                padding: 10px;
+                background: #f0f0f0;
+                font-size: 0.9rem;
+                color: #666;
+                text-align: center;
+            }
+
+            .media-credit {
+                font-style: italic;
+                font-size: 0.8rem;
+                color: #888;
+                text-align: right;
+                padding: 5px 10px;
+            }
+
+            .media-link {
+                display: block;
+                text-align: right;
+                padding: 5px 10px;
+                color: #1a2a6c;
+                text-decoration: none;
+                font-size: 0.9rem;
+                transition: color 0.3s ease;
+            }
+
+            .media-link:hover {
+                color: #b21f1f;
+                text-decoration: underline;
+            }
+
+            .event-dot {
+                position: absolute;
+                width: 20px;
+                height: 20px;
+                background: white;
+                border: 4px solid #1a2a6c;
+                border-radius: 50%;
+                top: 30px;
+                z-index: 3;
+            }
+
+            .timeline-event:nth-child(odd) .event-dot {
+                left: calc(50% - 10px);
+            }
+
+            .timeline-event:nth-child(even) .event-dot {
+                left: calc(50% - 10px);
+            }
+
+            footer {
+                background: #1a2a6c;
+                color: white;
+                padding: 40px 0;
+                text-align: center;
+            }
+
+            @media (max-width: 768px) {
+                header h1 {
+                    font-size: 2.5rem;
+                }
+
+                .timeline-line {
+                    left: 30px;
+                }
+
+                .timeline-event:nth-child(odd) .event-content,
+                .timeline-event:nth-child(even) .event-content {
+                    width: calc(100% - 33px);
+                    margin-left: 34px;
+                }
+
+                .event-date {
+                    left: 0 !important;
+                    right: auto !important;
+                }
+
+                .event-dot {
+                    left: 0px !important;
+                }
+
+                .month-label {
+                    font-size: 1rem;
+                    padding: 8px 20px;
+                }
+            }
+
+            .loading-animation {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: rgba(255, 255, 255, 0.9);
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                z-index: 9999;
+                transition: opacity 0.5s ease;
+            }
+
+            .loading-animation.hidden {
+                opacity: 0;
+                pointer-events: none;
+            }
+
+            .spinner {
+                width: 50px;
+                height: 50px;
+                border: 5px solid #f3f3f3;
+                border-top: 5px solid #1a2a6c;
+                border-radius: 50%;
+                animation: spin 1s linear infinite;
+            }
+
+            @keyframes spin {
+                0% {
+                    transform: rotate(0deg);
+                }
+
+                100% {
+                    transform: rotate(360deg);
+                }
+            }
+        </style>
+    </head>
+
+    <body>
+        <div class="loading-animation" id="loader">
+            <div class="spinner"></div>
+        </div>
+
+        <header>
+            <div class="container">
+                <h2>Kaleidoskop 2024</h2>
+            </div>
+        </header>
+
+        <main class="timeline-container">
+            <div class="timeline-line"></div>
+            <div class="container" id="timeline-content">
+                <!-- Timeline events will be inserted here -->
+            </div>
+        </main>
+
+        <footer>
+            <div class="container">
+                <p><a href="index.html" style="color: white;">Indeks</a> </p>
+            </div>
+        </footer>
+
+        <script>
+            document.addEventListener('DOMContentLoaded', function () {
+
+                const data = {
+                    "title": {
+                        "text": {
+                            "headline": "Kaleidoskop 2024",
+                            "text": "Ringkasan peristiwa penting di Indonesia sepanjang tahun 2024."
+                        }
+                    },
+                    "events": [
+                        {
+                            "start_date": {
+                                "year": "2024",
+                                "month": "1",
+                                "day": "1"
+                            },
+                            "text": {
+                                "headline": "Gempa Bumi di Lembang, Jawa Barat",
+                                "text": "Gempa bumi berkekuatan M 4,5 terjadi 23 km di utara timur laut Lembang, Jawa Barat. Empat ratus rumah rusak di Sumedang."
+                            },
+                            "media": {
+                                "url": "https://aqlpeduli.or.id/wp-content/uploads/2024/09/Gempa-Bandung.webp",
+                                "caption": "Gempa di bandung bukan disebabkan oleh sesar Garsela namun ada ...",
+                                "credit": "AQL Peduli",
+                                "link": "https://aqlpeduli.or.id/2024/09/23/gempa-di-bandung-bukan-disebabkan-oleh-sesar-garsela-namun-ada-sesar-lain-yang-belum-terpetakan/"
+                            }
+                        },
+                        {
+                            "start_date": {
+                                "year": "2024",
+                                "month": "1",
+                                "day": "5"
+                            },
+                            "text": {
+                                "headline": "Tabrakan Kereta Api di Cicalengka",
+                                "text": "Empat orang tewas dan 37 luka-luka dalam tabrakan berhadapan antara Kereta Turangga dan Commuter Line Bandung Raya di dekat Cicalengka, Jawa Barat."
+                            },
+                            "media": {
+                                "url": "https://upload.wikimedia.org/wikipedia/commons/0/00/2024_Cicalengka_Train_Collision%2C_Taken_from_25_Meters_Away.jpg",
+                                "caption": "2024 Cicalengka railway collision - Wikipedia",
+                                "credit": "Wikipedia",
+                                "link": "https://en.wikipedia.org/wiki/2024_Cicalengka_railway_collision"
+                            }
+                        },
+                        {
+                            "start_date": {
+                                "year": "2024",
+                                "month": "1",
+                                "day": "18"
+                            },
+                            "text": {
+                                "headline": "Tornado Melanda Bondowoso, Jawa Timur",
+                                "text": "Ratusan rumah rusak dan hampir selusin orang terluka setelah tornado menerjang desa-desa di Bondowoso, Jawa Timur."
+                            },
+                            "media": {
+                                "url": "https://www.suarasurabaya.net/wp-content/uploads/2024/01/Screenshot-38.jpg",
+                                "caption": "191 Rumah di Bondowoso Rusak Akibat Diterjang Angin Puting Beliung ...",
+                                "credit": "Suara Surabaya",
+                                "link": "https://www.suarasurabaya.net/kelanakota/2024/191-rumah-di-bondowoso-rusak-akibat-diterjang-angin-puting-beliung/"
+                            }
+                        },
+                        {
+                            "start_date": {
+                                "year": "2024",
+                                "month": "1",
+                                "day": "31"
+                            },
+                            "text": {
+                                "headline": "Petisi Bulaksumur oleh UGM",
+                                "text": "Universitas Gadjah Mada merilis Petisi Bulaksumur yang menyerukan Presiden Jokowi dan stafnya untuk menghentikan kecurangan dalam pemerintahan dan pemilu 2024."
+                            },
+                            "media": {
+                                "url": "https://ugm.ac.id/wp-content/uploads/2024/02/PHOTO-2024-02-01-08-42-08.jpg",
+                                "caption": "Akademisi UGM Sampaikan Petisi Bulaksumur Soal Dinamika ...",
+                                "credit": "Universitas Gadjah Mada",
+                                "link": "https://ugm.ac.id/id/berita/akademisi-ugm-sampaikan-petisi-bulaksumur-soal-dinamika-perpolitikan-nasional/"
+                            }
+                        },
+                        {
+                            "start_date": {
+                                "year": "2024",
+                                "month": "2",
+                                "day": "2"
+                            },
+                            "text": {
+                                "headline": "Mahfud MD Mengundurkan Diri",
+                                "text": "Mahfud MD mengundurkan diri sebagai Menko Polhukam dan digantikan oleh Tito Karnavian."
+                            },
+                            "media": {
+                                "url": "https://awsimages.detik.net.id/community/media/visual/2024/02/01/mahfud-md-resmi-mengundurkan-diri-dari-jabatan-menko-polhukam-mahfud-lalu-memberi-pernyataan-dengan-ditemani-mensesneg-pratikn-3_169.jpeg?w=1200",
+                                "caption": "Mahfud Md Resmi Mundur dari Menko Polhukam",
+                                "credit": "detikcom",
+                                "link": "https://www.detik.com/jatim/berita/d-7172164/mahfud-md-resmi-mundur-dari-menko-polhukam"
+                            }
+                        },
+                        {
+                            "start_date": {
+                                "year": "2024",
+                                "month": "2",
+                                "day": "13"
+                            },
+                            "text": {
+                                "headline": "Rilis Film Dokumenter 'Dirty Vote'",
+                                "text": "Film dokumenter 'Dirty Vote' dirilis di YouTube dan menjadi viral karena tuduhan kecurangan dalam pemilu 2024."
+                            },
+                            "media": {
+                                "url": "https://icjr.or.id/wp-content/uploads/2024/02/91431180-ca20-11ee-ace0-c35c1b4f6d82.jpg",
+                                "caption": "Kriminalisasi pada Tim Film Dirty Vote adalah Bentuk Pembungkaman ...",
+                                "credit": "Institute for Criminal Justice Reform",
+                                "link": "https://icjr.or.id/kriminalisasi-pada-tim-film-dirty-vote-adalah-bentuk-pembungkaman-kritik-dan-fakta/"
+                            }
+                        },
+                        {
+                            "start_date": {
+                                "year": "2024",
+                                "month": "2",
+                                "day": "14"
+                            },
+                            "text": {
+                                "headline": "Pemilu Umum 2024",
+                                "text": "Indonesia menyelenggarakan pemilu umum terbesar di dunia dalam satu hari."
+                            },
+                            "media": {
+                                "url": "https://fisip.umsu.ac.id/wp-content/uploads/2023/07/sejarah-pemilu-di-indonesia.jpg",
+                                "caption": "Pengertian dan Sejarah Pemilu di Indonesia – FISIP UMSU Terbaik di ...",
+                                "credit": "FISIP UMSU",
+                                "link": "https://fisip.umsu.ac.id/pengertian-dan-sejarah-pemilu-di-indonesia/"
+                            }
+                        },
+                        {
+                            "start_date": {
+                                "year": "2024",
+                                "month": "2",
+                                "day": "17"
+                            },
+                            "text": {
+                                "headline": "Penembakan Pesawat di Papua",
+                                "text": "Seorang penumpang terluka setelah pesawat Wings Air ditembak saat mendarat di Bandara Nop Goliat Dekai, Papua."
+                            },
+                            "media": {
+                                "url": "https://awsimages.detik.net.id/community/media/visual/2024/02/16/kondisi-pesawat-asian-one-air-usai-ditembak-oleh-otk-di-kabupaten-puncak-papua-tengah_169.jpeg?w=600&q=90",
+                                "caption": "Polda Papua Duga OTK Tembak Pesawat Asian One di Puncak Terkait Pileg",
+                                "credit": "detikcom",
+                                "link": "https://www.detik.com/sulsel/berita/d-7197222/polda-papua-duga-otk-tembak-pesawat-asian-one-di-puncak-terkait-pileg"
+                            }
+                        },
+                        {
+                            "start_date": {
+                                "year": "2024",
+                                "month": "2",
+                                "day": "19"
+                            },
+                            "text": {
+                                "headline": "Kabur dari Tahanan di Jakarta",
+                                "text": "Enam belas tahanan kabur dari Polsek Tanah Abang, Jakarta."
+                            },
+                            "media": {
+                                "url": "https://statik.tempo.co/data/2024/02/22/id_1281896/1281896_720.jpg",
+                                "caption": "Sejumlah Kasus Tahanan Kabur, Teranyar 7 Napi Narkoba Ngacir dari ...",
+                                "credit": "Tempo.co",
+                                "link": "https://www.tempo.co/hukum/sejumlah-kasus-tahanan-kabur-teranyar-7-napi-narkoba-ngacir-dari-rutan-salemba--1168580"
+                            }
+                        },
+                        {
+                            "start_date": {
+                                "year": "2024",
+                                "month": "2",
+                                "day": "21"
+                            },
+                            "text": {
+                                "headline": "Tornado di Sumedang",
+                                "text": "Setidaknya 33 orang terluka setelah tornado menerjang Sumedang."
+                            },
+                            "media": {
+                                "url": "https://upload.wikimedia.org/wikipedia/commons/5/51/NSSL_Mobile_Mesonet_Truck_chasing_the_2024_Duke%2C_Oklahoma_tornado.png",
+                                "caption": "Tornadoes of 2024 - Wikipedia",
+                                "credit": "Wikipedia",
+                                "link": "https://en.wikipedia.org/wiki/Tornadoes_of_2024"
+                            }
+                        },
+                        {
+                            "start_date": {
+                                "year": "2024",
+                                "month": "2",
+                                "day": "28"
+                            },
+                            "text": {
+                                "headline": "Gempa Bumi di Jawa Barat",
+                                "text": "Satu orang tewas setelah gempa bumi berkekuatan M 2,8 mengguncang Jawa Barat."
+                            },
+                            "media": {
+                                "url": "https://www.radarbandung.id/wp-content/uploads/2024/09/IMG-20240908-WA0272.jpg",
+                                "caption": "134 Gempa Bumi Guncang Jawa Barat Sepanjang Agustus 2024, BMKG ...",
+                                "credit": "Radar Bandung",
+                                "link": "https://www.radarbandung.id/2024/09/08/134-gempa-bumi-guncang-jawa-barat-sepanjang-agustus-2024-bmkg-warga-diminta-tetap-tenang/"
+                            }
+                        },
+                        {
+                            "start_date": {
+                                "year": "2024",
+                                "month": "3",
+                                "day": "7"
+                            },
+                            "text": {
+                                "headline": "Banjir dan Longsor di Sumatra Barat",
+                                "text": "Setidaknya 26 orang tewas dan 11 hilang akibat banjir dan longsor di Sumatra Barat."
+                            },
+                            "media": {
+                                "url": "https://live-production.wcms.abc-cdn.net.au/ad5cf80d0366eba38b735ddf18e9a896?impolicy=wcms_crop_resize&cropH=3271&cropW=4907&xPos=47&yPos=0&width=862&height=575",
+                                "caption": "Dunia Hari Ini: Banjir di Sumatera Barat Menewaskan 26 Jiwa - ABC News",
+                                "credit": "ABC News",
+                                "link": "https://www.abc.net.au/indonesian/2024-03-12/banjir-di-sumatera-barat-menewaskan-26-orang/103575970"
+                            }
+                        },
+                        {
+                            "start_date": {
+                                "year": "2024",
+                                "month": "3",
+                                "day": "9"
+                            },
+                            "text": {
+                                "headline": "Kapal Nelayan Tenggelam di Sulawesi Selatan",
+                                "text": "Kapal nelayan tenggelam di lepas pantai Pulau Selayar, Sulawesi Selatan. Dua orang tewas, 11 selamat, dan 24 hilang."
+                            },
+                            "media": {
+                                "url": "https://cdn.antaranews.com/cache/1200x800/2024/08/05/WhatsApp-Image-2024-08-04-at-20.56.21.jpeg",
+                                "caption": "Perahu terbalik di Takalar Sulsel, 31 penumpang akhirnya ...",
+                                "credit": "Sulawesi Utara - ANTARA News",
+                                "link": "https://manado.antaranews.com/berita/257379/perahu-terbalik-di-takalar-sulsel-31-penumpang-akhirnya-diselamatkan-basarnas"
+                            }
+                        },
+                        {
+                            "start_date": {
+                                "year": "2024",
+                                "month": "3",
+                                "day": "14"
+                            },
+                            "text": {
+                                "headline": "Banjir di Kudus, Jawa Tengah",
+                                "text": "Setidaknya tujuh orang tewas akibat banjir di Kabupaten Kudus, Jawa Tengah."
+                            },
+                            "media": {
+                                "url": "https://cdn.antaranews.com/cache/1200x800/2023/12/05/banjir-wono.jpg",
+                                "caption": "Banjir Kudus 2024 - Ambisius Wiki",
+                                "credit": "Ambisius Wiki",
+                                "link": "https://wiki.ambisius.com/bencana-alam/banjir-kudus-2024"
+                            }
+                        },
+                        {
+                            "start_date": {
+                                "year": "2024",
+                                "month": "3",
+                                "day": "20"
+                            },
+                            "text": {
+                                "headline": "Hasil Pemilu 2024 Diumumkan",
+                                "text": "KPU mengumumkan hasil pemilu 2024, menetapkan Prabowo Subianto dan Gibran Rakabuming Raka sebagai presiden dan wakil presiden terpilih."
+                            },
+                            "media": {
+                                "url": "https://www.kpu.go.id/images/1711044835WhatsApp%20Image%202024-03-21%20at%2001.09.59%20(1).jpeg",
+                                "caption": "KPU Tetapkan Hasil Pemilu Tahun 2024 - KPU",
+                                "credit": "KPU",
+                                "link": "https://www.kpu.go.id/berita/baca/12300/kpu-tetapkan-hasil-pemilu-tahun-2024"
+                            }
+                        },
+                        {
+                            "start_date": {
+                                "year": "2024",
+                                "month": "3",
+                                "day": "21"
+                            },
+                            "text": {
+                                "headline": "Kapal Pengungsi Rohingya Tenggelam di Aceh",
+                                "text": "75 orang diselamatkan dari kapal pengungsi Rohingya yang tenggelam di lepas pantai Kuala Bubon, Aceh. Tiga mayat ditemukan, sementara penumpang lainnya dinyatakan hilang."
+                            },
+                            "media": {
+                                "url": "https://gdb.voanews.com/01000000-0aff-0242-c964-08dc49b52a9a_w408_r1_s.jpeg",
+                                "caption": "Kapal Pengungsi Rohingya Terbalik di Perairan Aceh Barat, Basarnas ...",
+                                "credit": "VOA Indonesia",
+                                "link": "https://www.voaindonesia.com/a/kapal-pengungsi-rohingya-terbalik-di-perairan-aceh-barat-basarnas-selamatkan-69-orang/7536991.html"
+                            }
+                        },
+                        {
+                            "start_date": {
+                                "year": "2024",
+                                "month": "3",
+                                "day": "22"
+                            },
+                            "text": {
+                                "headline": "Gempa Bumi di Jawa Timur",
+                                "text": "Dua gempa bumi mengguncang lepas pantai Jawa Timur, melukai setidaknya 15 orang."
+                            },
+                            "media": {
+                                "url": "https://cdn.suaranetwork.com/images/2024/04/05/41334777c133.jpg",
+                                "caption": "Maret 2024, Jawa Timur Diguncang Gempa Bumi Sebanyak 1.107 Kali ...",
+                                "credit": "suara indonesia",
+                                "link": "https://suaraindonesia.co.id/news/news/660f9a6dc3ee0/maret-2024-jawa-timur-diguncang-gempa-bumi-sebanyak-1107-kali#!"
+                            }
+                        },
+                        {
+                            "start_date": {
+                                "year": "2024",
+                                "month": "3",
+                                "day": "25"
+                            },
+                            "text": {
+                                "headline": "Penyiksaan oleh Anggota TNI di Papua",
+                                "text": "Tiga belas prajurit TNI ditangkap setelah video penyiksaan terhadap anggota gerakan Papua Merdeka beredar."
+                            },
+                            "media": {
+                                "url": "https://ichef.bbci.co.uk/ace/ws/640/cpsprodpb/f302/live/c1f64800-ef4c-11ee-a0a8-cb6d89185bd6.jpg.webp",
+                                "caption": "Papua: Menelusuri kasus penyiksaan warga sipil oleh prajurit TNI ...",
+                                "credit": "BBC",
+                                "link": "https://www.bbc.com/indonesia/articles/c9ed29vxdjno"
+                            }
+                        },
+                        {
+                            "start_date": {
+                                "year": "2024",
+                                "month": "3",
+                                "day": "27"
+                            },
+                            "text": {
+                                "headline": "Skandal Korupsi PT Timah",
+                                "text": "Harvey Moeis, suami Sandra Dewi, ditetapkan sebagai tersangka dalam skandal korupsi PT Timah dengan kerugian mencapai Rp 271 triliun."
+                            },
+                            "media": {
+                                "url": "https://live-production.wcms.abc-cdn.net.au/8588415a4760eae9ee579215f71eb854?impolicy=wcms_crop_resize&cropH=727&cropW=1292&xPos=4&yPos=0&width=862&height=485",
+                                "caption": "Peran dan Modus dalam Kasus Korupsi PT Timah yang Rugikan Negara ...",
+                                "credit": "ABC News",
+                                "link": "https://www.abc.net.au/indonesian/2024-04-04/peran-dan-modus-korupsi-timah-harvey-moeis/103667550"
+                            }
+                        },
+                        {
+                            "start_date": {
+                                "year": "2024",
+                                "month": "3",
+                                "day": "30"
+                            },
+                            "text": {
+                                "headline": "Ledakan Gudang Amunisi di Bekasi",
+                                "text": "Ledakan terjadi di gudang amunisi TNI di Bantar Gebang, Bekasi, Jawa Barat."
+                            },
+                            "media": {
+                                "url": "https://www.suarasurabaya.net/wp-content/uploads/2024/03/ARMED-840x493.png.webp",
+                                "caption": "Ledakan Gudang Amunisi di Bekasi, Warga di Sekitar Lokasi ...",
+                                "credit": "Suara Surabaya",
+                                "link": "https://www.suarasurabaya.net/kelanakota/2024/ledakan-gudang-amunisi-di-bekasi-warga-di-sekitar-lokasi-dievakuasi/"
+                            }
+                        },
+                        {
+                            "start_date": {
+                                "year": "2024",
+                                "month": "4",
+                                "day": "4"
+                            },
+                            "text": {
+                                "headline": "Bentrokan di Papua Tengah",
+                                "text": "Dua pemimpin Tentara Pembebasan Nasional Papua Barat tewas dalam baku tembak dengan pasukan keamanan di dekat Tembagapura, Papua Tengah."
+                            },
+                            "media": {
+                                "url": "https://ichef.bbci.co.uk/ace/ws/640/cpsprodpb/cf68/live/fd3ed2e0-ae34-11ef-be95-a1f725d18284.jpg.webp",
+                                "caption": "Papua: Kronologi konflik Pilkada di Puncak Jaya, dari saling ...",
+                                "credit": "BBC",
+                                "link": "https://www.bbc.com/indonesia/articles/c4gzny0z9e1o"
+                            }
+                        },
+                        {
+                            "start_date": {
+                                "year": "2024",
+                                "month": "4",
+                                "day": "8"
+                            },
+                            "text": {
+                                "headline": "Kecelakaan Maut di Tol Jakarta-Cikampek",
+                                "text": "Minibus bertabrakan dengan bus di Tol Jakarta-Cikampek, Karawang, Jawa Barat, menewaskan 12 orang dan melukai dua orang."
+                            },
+                            "media": {
+                                "url": "https://awsimages.detik.net.id/community/media/visual/2024/04/08/kecelakaan-tol-jakarta-cikampek-km-58-9_169.jpeg?w=1200",
+                                "caption": "6 Fakta Kecelakaan Tol Cikampek Tewaskan 12 Orang di Jalur Contraflow",
+                                "credit": "detikNews - detikcom",
+                                "link": "https://news.detik.com/berita/d-7285295/6-fakta-kecelakaan-tol-cikampek-tewaskan-12-orang-di-jalur-contraflow"
+                            }
+                        },
+                        {
+                            "start_date": {
+                                "year": "2024",
+                                "month": "4",
+                                "day": "11"
+                            },
+                            "text": {
+                                "headline": "Bus Jatuh ke Parit di Jawa Tengah",
+                                "text": "Tujuh orang tewas dan 15 luka-luka setelah bus jatuh ke parit di Tol Batang-Semarang, Jawa Tengah."
+                            },
+                            "media": {
+                                "url": "https://static.promediateknologi.id/crop/0x0:0x0/750x500/webp/photo/p2/125/2024/04/11/GK2_-EdbEAAr5Kk-4115882595.jpg",
+                                "caption": "Bus Rosalia Indah Terperosok ke Parit Sepanjang 200 Meter, 7 ...",
+                                "credit": "ArahPublik",
+                                "link": "https://www.arahpublik.com/berita-publik/1254534790/bus-rosalia-indah-terperosok-ke-parit-sepanjang-200-meter-7-penumpang-tewas"
+                            }
+                        },
+                        {
+                            "start_date": {
+                                "year": "2024",
+                                "month": "4",
+                                "day": "13"
+                            },
+                            "text": {
+                                "headline": "Longsor di Tana Toraja",
+                                "text": "Dua puluh orang tewas dalam longsor di Kabupaten Tana Toraja, Sulawesi Selatan."
+                            },
+                            "media": {
+                                "url": "https://akcdn.detik.net.id/visual/2024/04/16/pencarian-korban-tanah-longsor-di-tana-toraja_169.jpeg?w=1200",
+                                "caption": "Fakta-fakta Longsor Tana Toraja: 20 Korban Tewas Ditemukan",
+                                "credit": "CNN Indonesia",
+                                "link": "https://www.cnnindonesia.com/nasional/20240417095427-20-1087112/fakta-fakta-longsor-tana-toraja-20-korban-tewas-ditemukan"
+                            }
+                        },
+                        {
+                            "start_date": {
+                                "year": "2024",
+                                "month": "4",
+                                "day": "14"
+                            },
+                            "text": {
+                                "headline": "Bentrokan TNI-Polri di Sorong",
+                                "text": "Setidaknya enam orang terluka dalam bentrokan antara personel TNI dan Polri di Sorong, Papua Barat Daya."
+                            },
+                            "media": {
+                                "url": "https://images-tm.tempo.co/all/2024/04/17/859011/859011_1200.jpg",
+                                "caption": "Di Balik Bentrokan TNI Vs Polri di Sorong | tempo.co",
+                                "credit": "Tempo.co",
+                                "link": "https://www.tempo.co/hukum/bentrok-tni-vs-polri-di-sorong-409473"
+                            }
+                        },
+                        {
+                            "start_date": {
+                                "year": "2024",
+                                "month": "4",
+                                "day": "17"
+                            },
+                            "text": {
+                                "headline": "Erupsi Gunung Ruang",
+                                "text": "Ribuan orang dievakuasi setelah Gunung Ruang di Sulawesi Utara meletus, memicu peringatan tsunami."
+                            },
+                            "media": {
+                                "url": "https://www.suarasurabaya.net/wp-content/uploads/2024/04/PVMBG-Paparkan-Tiga-Erupsi-Eksplosif-Gunung-Ruang-di-Sulawesi-Utara-272-KK-mengungsi-840x493.jpg.webp",
+                                "caption": "PVMBG Paparkan Tiga Erupsi Eksplosif Gunung Ruang di Sulawesi ...",
+                                "credit": "Suara Surabaya",
+                                "link": "https://www.suarasurabaya.net/kelanakota/2024/pvmbg-paparkan-tiga-erupsi-eksplosif-gunung-ruang-di-sulawesi-utara-272-kk-mengungsi/"
+                            }
+                        },
+                        {
+                            "start_date": {
+                                "year": "2024",
+                                "month": "4",
+                                "day": "18"
+                            },
+                            "text": {
+                                "headline": "Kebakaran di Jakarta Selatan",
+                                "text": "Tujuh orang tewas dalam kebakaran di sebuah ruko di Mampang Prapatan, Jakarta Selatan."
+                            },
+                            "media": {
+                                "url": "https://awsimages.detik.net.id/community/media/visual/2024/01/11/kebakaran-di-jakarta-selatan-dok-istimewa_169.jpeg?w=600&q=90",
+                                "caption": "Kebakaran di Jl Saharjo Jaksel, Asap Tebal Membubung Tinggi",
+                                "credit": "detikNews - detikcom",
+                                "link": "https://news.detik.com/berita/d-7136355/kebakaran-di-jl-saharjo-jaksel-asap-tebal-membubung-tinggi"
+                            }
+                        },
+                        {
+                            "start_date": {
+                                "year": "2024",
+                                "month": "4",
+                                "day": "20"
+                            },
+                            "text": {
+                                "headline": "Penangkapan Terduga Teroris",
+                                "text": "Polisi menangkap delapan terduga anggota sel teroris Jemaah Islamiyah dalam serangkaian penggerebekan di Sulawesi Tengah."
+                            },
+                            "media": {
+                                "url": "https://tribratanews.maluku.polri.go.id/uploads/images/2024/11/05/img_672a172896b86.jpg",
+                                "caption": "Website Resmi Polda Maluku - Densus 88 AT Polri Tangkap 3 Terduga ...",
+                                "credit": "Polda Maluku - Polri",
+                                "link": "https://tribratanews.maluku.polri.go.id/informasi/berita/baca/densus-88-at-polri-tangkap-3-terduga-teroris-anshor-daulah-jateng"
+                            }
+                        },
+                        {
+                            "start_date": {
+                                "year": "2024",
+                                "month": "4",
+                                "day": "22"
+                            },
+                            "text": {
+                                "headline": "MK Tolak Gugatan Pemilu 2024",
+                                "text": "Mahkamah Konstitusi menolak semua gugatan terhadap hasil Pemilu Presiden 2024, memungkinkan KPU menetapkan Prabowo-Gibran sebagai pemenang."
+                            },
+                            "media": {
+                                "url": "https://i.ytimg.com/vi/ewsXVXtwOdI/maxresdefault.jpg",
+                                "caption": "Tok! Hakim MK Tolak Gugatan Batas Usia 35 Tahun untuk Capres Cawapres  Pemilu 2024",
+                                "credit": "YouTube",
+                                "link": "https://www.youtube.com/watch?v=ewsXVXtwOdI"
+                            }
+                        },
+                        {
+                            "start_date": {
+                                "year": "2024",
+                                "month": "4",
+                                "day": "28"
+                            },
+                            "text": {
+                                "headline": "Gempa Bumi di Jawa Barat",
+                                "text": "Gempa bumi berkekuatan M 6,1 mengguncang lepas pantai Jawa Barat, menewaskan satu orang dan melukai tujuh lainnya."
+                            },
+                            "media": {
+                                "url": "https://asset.tribunnews.com/OpLGK2SE47IaYBI54YGj82hgjPc=/1200x675/filters:upscale():quality(30):format(webp):focal(0.5x0.5:0.5x0.5)/jogja/foto/bank/originals/Gempa-Bumi-Mag-65-Sabtu-27-April-2024-Pukul-232947-WIB-Garut.jpg",
+                                "caption": "INFO GEMPA BUMI Magnitudo 6,5 Hari Ini Sabtu 27 April 2024 Pukul ...",
+                                "credit": "Tribun Jogja - Tribunnews.com",
+                                "link": "https://jogja.tribunnews.com/2024/04/27/info-gempa-bumi-magnitudo-65-hari-ini-sabtu-27-april-2024-pukul-2329-wib-pusat-di-garut-jabar"
+                            }
+                        },
+                        {
+                            "start_date": {
+                                "year": "2024",
+                                "month": "4",
+                                "day": "30"
+                            },
+                            "text": {
+                                "headline": "Erupsi Kedua Gunung Ruang",
+                                "text": "Gunung Ruang di Sulawesi Utara meletus untuk kedua kalinya dalam sebulan, memicu evakuasi lebih dari 12.000 orang."
+                            },
+                            "media": {
+                                "url": "https://i1.wp.com/risetcdn.jatimtimes.com/images/2024/05/01/Gunung-Ruang-yang-erupsi-pada-Selasa-3042024.-Foto-dari-X-P518a335a83f380ac.jpg?q=100&resize=1200,675",
+                                "caption": "Sejarah Panjang Gunung Ruang yang Kembali Erupsi pada April 2024",
+                                "credit": "Jatimtimes",
+                                "link": "https://jatimtimes.com/baca/311126/20240501/052500/sejarah-panjang-gunung-ruang-yang-kembali-erupsi-pada-april-2024"
+                            }
+                        },
+                        {
+                            "start_date": {
+                                "year": "2024",
+                                "month": "5",
+                                "day": "2"
+                            },
+                            "text": {
+                                "headline": "Banjir dan Longsor di Sulawesi Selatan",
+                                "text": "Empat belas orang tewas dalam banjir dan longsor di Kabupaten Luwu, Sulawesi Selatan."
+                            },
+                            "media": {
+                                "url": "https://static.promediateknologi.id/crop/0x0:0x0/0x0/webp/photo/p2/01/2024/05/04/Screenshot-2024-05-03-180547_11zon-2656623890.jpg",
+                                "caption": "Hujan Lebat, Sulawesi Selatan Dilanda Banjir dan Tanah Longsor ...",
+                                "credit": "Jawa Pos",
+                                "link": "https://www.jawapos.com/berita-sekitar-anda/014613985/hujan-lebat-sulawesi-selatan-dilanda-banjir-dan-tanah-longsor"
+                            }
+                        },
+                        {
+                            "start_date": {
+                                "year": "2024",
+                                "month": "5",
+                                "day": "11"
+                            },
+                            "text": {
+                                "headline": "Kecelakaan Bus di Subang",
+                                "text": "Sebuah bus yang membawa siswa menabrak beberapa kendaraan dan terbalik di Subang, Jawa Barat, menewaskan 11 orang."
+                            },
+                            "media": {
+                                "url": "https://img.harianjogja.com/posts/2024/05/15/1174551/f97abb80-d0d3-49e3-8b6d-3ec6381723f7.jpeg",
+                                "caption": "Kecelakaan Maut Bus di Subang, Polisi Dinilai Dapat Menjerat ...",
+                                "credit": "News",
+                                "link": "https://news.harianjogja.com/read/2024/05/15/500/1174551/kecelakaan-maut-bus-di-subang-polisi-dinilai-dapat-menjerat-pemilik-po-bus"
+                            }
+                        },
+                        {
+                            "start_date": {
+                                "year": "2024",
+                                "month": "5",
+                                "day": "14"
+                            },
+                            "text": {
+                                "headline": "Gempa Bumi di Lombok",
+                                "text": "Gempa bumi berkekuatan M 5,1 mengguncang Lombok, melukai satu orang."
+                            },
+                            "media": {
+                                "url": "https://cdn.rri.co.id/berita/54/images/1709420290456-h/eq1zv8ylazqa8mw.jpeg",
+                                "caption": "RRI.co.id - 707 Gempa Bumi Terjadi di NTB Selama Februari 2024",
+                                "credit": "RRI",
+                                "link": "https://rri.co.id/daerah/578459/707-gempa-bumi-terjadi-di-ntb-selama-februari-2024"
+                            }
+                        },
+                        {
+                            "start_date": {
+                                "year": "2024",
+                                "month": "5",
+                                "day": "19"
+                            },
+                            "text": {
+                                "headline": "Pesawat Latih Jatuh di Serpong",
+                                "text": "Pesawat latih jatuh di BSD City, Serpong, menewaskan tiga orang di dalamnya."
+                            },
+                            "media": {
+                                "url": "https://cdn.antaranews.com/cache/1200x800/2024/05/19/pesawat-latih-jatuh-di-serpong-18052024-bal-4.jpg",
+                                "caption": "Pesawat latih jatuh di BSD Serpong, tiga orang meninggal dunia ...",
+                                "credit": "Ramadhan - ANTARA News",
+                                "link": "https://ramadhan.antaranews.com/foto/4111833/pesawat-latih-jatuh-di-bsd-serpong-tiga-orang-meninggal-dunia"
+                            }
+                        },
+                        {
+                            "start_date": {
+                                "year": "2024",
+                                "month": "5",
+                                "day": "21"
+                            },
+                            "text": {
+                                "headline": "Penangkapan Pelaku Pembunuhan di Cirebon",
+                                "text": "Pegi Setiawan alias Perong, dalang pembunuhan Vina Dewi Arsita dan kekasihnya pada 2016, ditangkap oleh Polda Jawa Barat di Bandung."
+                            },
+                            "media": {
+                                "url": "https://suaracirebon.com/wp-content/uploads/2024/05/pembunuhan-pemilik-bengkel-di-plumbon-cirebon.jpg",
+                                "caption": "Pelaku Pembunuhan Pemilik Bengkel di Plumbon Cirebon Dibekuk Polisi",
+                                "credit": "Suara Cirebon",
+                                "link": "https://suaracirebon.com/2024/05/03/pelaku-pembunuhan-pemilik-bengkel-di-plumbon-cirebon-dibekuk-polisi/"
+                            }
+                        },
+                        {
+                            "start_date": {
+                                "year": "2024",
+                                "month": "5",
+                                "day": "27"
+                            },
+                            "text": {
+                                "headline": "Penerbitan SIM C1 untuk Motor 250-500cc",
+                                "text": "Korlantas Polri secara resmi menerbitkan SIM C1 untuk kendaraan roda dua dengan kapasitas mesin 250-500cc."
+                            },
+                            "media": {
+                                "url": "https://akcdn.detik.net.id/visual/2024/05/27/sim-c1-untuk-motor-250-500cc-1_169.jpeg?w=480&q=90",
+                                "caption": "Wujud SIM C1 untuk Motor 250-500 CC",
+                                "credit": "CNN Indonesia",
+                                "link": "https://www.cnnindonesia.com/otomotif/20240527193234-579-1102578/wujud-sim-c1-untuk-motor-250-500-cc"
+                            }
+                        },
+                        {
+                            "start_date": {
+                                "year": "2024",
+                                "month": "5",
+                                "day": "30"
+                            },
+                            "text": {
+                                "headline": "Gempa Bumi di Sulawesi Tengah",
+                                "text": "Gempa bumi berkekuatan M 5,0 mengguncang Sulawesi Tengah, melukai lima orang."
+                            },
+                            "media": {
+                                "url": "https://media.suara.com/pictures/970x544/2018/10/02/92693-gempa-palu.jpg",
+                                "caption": "429 Kali Gempa di Sulawesi Tengah Sejak Januari Hingga Maret 2024",
+                                "credit": "Suara Sulsel",
+                                "link": "https://sulsel.suara.com/read/2024/03/14/111039/429-kali-gempa-di-sulawesi-tengah-sejak-januari-hingga-maret-2024"
+                            }
+                        },
+                        {
+                            "start_date": {
+                                "year": "2024",
+                                "month": "6",
+                                "day": "3"
+                            },
+                            "text": {
+                                "headline": "Pengunduran Diri Kepala Otorita IKN",
+                                "text": "Bambang Susantono dan wakilnya, Dhony Rahajoe, mengundurkan diri sebagai kepala Otorita Ibu Kota Nusantara."
+                            },
+                            "media": {
+                                "url": "https://www.balipost.com/wp-content/uploads/2024/06/balipostcom_pengunduran-diri-kepala-dan-wakil-otorita-ikn-diumumkan_01-689x459.jpg",
+                                "caption": "Pengunduran Diri Kepala dan Wakil Otorita IKN Diumumkan | BALIPOST.com",
+                                "credit": "BALIPOST.com",
+                                "link": "https://www.balipost.com/news/2024/06/03/402759/Pengunduran-Diri-Kepala-dan-Wakil...html"
+                            }
+                        },
+                        {
+                            "start_date": {
+                                "year": "2024",
+                                "month": "6",
+                                "day": "4"
+                            },
+                            "text": {
+                                "headline": "Pemadaman Listrik di Sumatra",
+                                "text": "Gangguan di gardu transmisi di Sumatra Selatan menyebabkan pemadaman listrik besar-besaran yang memengaruhi sebagian besar Sumatra."
+                            },
+                            "media": {
+                                "url": "https://assets.pikiran-rakyat.com/crop/0x0:0x0/360x0/webp/photo/2024/06/06/2853601664.jpg",
+                                "caption": "Sumatra Mati Listrik Lebih dari 24 Jam, Begini Kondisinya Usai ...",
+                                "credit": "Pikiran Rakyat",
+                                "link": "https://www.pikiran-rakyat.com/nasional/pr-018179624/sumatra-mati-listrik-lebih-dari-24-jam-begini-kondisinya-usai-gelap-sejak-selasa-4-juni-2024?page=all"
+                            }
+                        },
+                        {
+                            "start_date": {
+                                "year": "2024",
+                                "month": "6",
+                                "day": "12"
+                            },
+                            "text": {
+                                "headline": "Penangkapan Pemburu Badak Jawa",
+                                "text": "Enam orang ditangkap karena diduga memburu badak Jawa di Taman Nasional Ujung Kulon, Banten."
+                            },
+                            "media": {
+                                "url": "https://cdn.antaranews.com/cache/1200x800/2024/05/15/IMG-20240515-WA0047_1.jpg",
+                                "caption": "Polri tangkap pemburu badak jawa di Taman Nasional Ujung Kulon ...",
+                                "credit": "ANTARA News",
+                                "link": "https://www.antaranews.com/berita/4105947/polri-tangkap-pemburu-badak-jawa-di-taman-nasional-ujung-kulon"
+                            }
+                        },
+                        {
+                            "start_date": {
+                                "year": "2024",
+                                "month": "6",
+                                "day": "14"
+                            },
+                            "text": {
+                                "headline": "Pembentukan Satgas Penanggulangan Judi Online",
+                                "text": "Presiden Joko Widodo membentuk Satgas Penanggulangan Judi Online melalui Keppres Nomor 21 Tahun 2024."
+                            },
+                            "media": {
+                                "url": "https://cdn.antaranews.com/cache/1200x800/2024/06/15/Screenshot_20240615_100830_Gallery.jpg.webp",
+                                "caption": "Jokowi terbitkan Keppres Satgas Judi Online, diketuai Menko ...",
+                                "credit": "ANTARA News",
+                                "link": "https://www.antaranews.com/berita/4153902/jokowi-terbitkan-keppres-satgas-judi-online-diketuai-menko-polhukam"
+                            }
+                        },
+                        {
+                            "start_date": {
+                                "year": "2024",
+                                "month": "6",
+                                "day": "24"
+                            },
+                            "text": {
+                                "headline": "Serangan Siber ke Pusat Data Nasional",
+                                "text": "Pusat Data Nasional diserang oleh kelompok peretas yang menuntut tebusan Rp 131 miliar."
+                            },
+                            "media": {
+                                "url": "https://www.bluepowertechnology.com/wp-content/uploads/2024/10/1719906896Pentingnya_data_security_saat_pusat_data_nasional_down.jpg.webp",
+                                "caption": "Pusat Data Nasional Terkena Ransomware, Kenali Pentingnya Data ...",
+                                "credit": "Blue Power Technology",
+                                "link": "https://www.bluepowertechnology.com/news-blog/pusat-data-nasional-terkena-ransomware-kenali-pentingnya-data-security/"
+                            }
+                        },
+                        {
+                            "start_date": {
+                                "year": "2024",
+                                "month": "6",
+                                "day": "27"
+                            },
+                            "text": {
+                                "headline": "Penangkapan WNA Terkait Kejahatan Siber di Bali",
+                                "text": "103 WNA ditangkap di Bali karena diduga terlibat dalam kejahatan siber."
+                            },
+                            "media": {
+                                "url": "https://i.ytimg.com/vi/NeYynoH-eco/maxresdefault.jpg",
+                                "caption": "Polisi Tangkap 103 WNA di Bali Terkait Kejahatan Siber",
+                                "credit": "YouTube",
+                                "link": "https://www.youtube.com/watch?v=NeYynoH-eco"
+                            }
+                        },
+                        {
+                            "start_date": {
+                                "year": "2024",
+                                "month": "6",
+                                "day": "30"
+                            },
+                            "text": {
+                                "headline": "Atlet China Meninggal di Yogyakarta",
+                                "text": "Atlet China, Zhang Zhijie, meninggal setelah kolaps saat pertandingan di Kejuaraan Bulu Tangkis Asia Junior 2024 di Yogyakarta."
+                            },
+                            "media": {
+                                "url": "https://awsimages.detik.net.id/visual/2024/07/01/zhang-zhi-jie-pemain-bulutangkis-muda-china-meninggal-dunia_169.jpeg?w=1200",
+                                "caption": "Kronologi Atlet Badminton China Zhang Zhi Jie Meninggal di Jogja",
+                                "credit": "CNBC Indonesia",
+                                "link": "https://www.cnbcindonesia.com/lifestyle/20240701101605-33-550690/kronologi-atlet-badminton-china-zhang-zhi-jie-meninggal-di-jogja"
+                            }
+                        },
+                        {
+                            "start_date": {
+                                "year": "2024",
+                                "month": "7",
+                                "day": "3"
+                            },
+                            "text": {
+                                "headline": "Pabrik Baterai Kendaraan Listrik Pertama di Indonesia",
+                                "text": "Pabrik baterai kendaraan listrik pertama di Indonesia diresmikan di Karawang, Jawa Barat, dengan investasi Rp 160 triliun."
+                            },
+                            "media": {
+                                "url": "https://img.harianjogja.com/posts/2024/07/03/1180071/kona.jpg",
+                                "caption": "Jokowi Resmikan Pabrik Baterai Kendaraan Listrik Pertama di ...",
+                                "credit": "News",
+                                "link": "https://news.harianjogja.com/read/2024/07/03/500/1180071/jokowi-resmikan-pabrik-baterai-kendaraan-listrik-pertama-di-indonesia"
+                            }
+                        },
+                        {
+                            "start_date": {
+                                "year": "2024",
+                                "month": "7",
+                                "day": "4"
+                            },
+                            "text": {
+                                "headline": "Pembubaran Jemaah Islamiyah",
+                                "text": "Delapan belas pemimpin Jemaah Islamiyah mengumumkan pembubaran kelompok militan tersebut setelah 31 tahun beroperasi."
+                            },
+                            "media": {
+                                "url": "https://humas.jatengprov.go.id/foto/1735040340029-IMG-20241223-WA0115.jpg",
+                                "caption": "Deklarasi Puncak Pembubaran Jamaah Islamiyah dilaksanakan di Kota ...",
+                                "credit": "Humas Jateng - Pemerintah Provinsi Jawa Tengah",
+                                "link": "https://humas.jatengprov.go.id/detail_berita_gubernur?id=9312"
+                            }
+                        },
+                        {
+                            "start_date": {
+                                "year": "2024",
+                                "month": "7",
+                                "day": "7"
+                            },
+                            "text": {
+                                "headline": "Longsor di Gorontalo",
+                                "text": "Setidaknya 23 orang tewas dan 35 hilang setelah longsor menerjang tambang emas ilegal di Bone Bolango, Gorontalo."
+                            },
+                            "media": {
+                                "url": "https://cdn.antaranews.com/cache/1200x800/2024/07/12/1720782715172_copy_1534x1023.jpg",
+                                "caption": "Gorontalo gold mine landslide: Number of survivors reaches ...",
+                                "credit": "ANTARA News",
+                                "link": "https://en.antaranews.com/news/318507/gorontalo-gold-mine-landslide-number-of-survivors-reaches-280"
+                            }
+                        },
+                        {
+                            "start_date": {
+                                "year": "2024",
+                                "month": "7",
+                                "day": "11"
+                            },
+                            "text": {
+                                "headline": "Mantan Menteri Pertanian Divonis 10 Tahun Penjara",
+                                "text": "Mantan Menteri Pertanian Syahrul Yasin Limpo divonis 10 tahun penjara karena korupsi dana publik senilai Rp 44,7 miliar."
+                            },
+                            "media": {
+                                "url": "https://cdn.antaranews.com/cache/1200x800/2024/07/05/28.jpg",
+                                "caption": "SYL divonis 10 tahun penjara terbukti melakukan korupsi di ...",
+                                "credit": "ANTARA News Kuala Lumpur",
+                                "link": "https://kl.antaranews.com/berita/26301/syl-divonis-10-tahun-penjara-terbukti-melakukan-korupsi-di-kementan"
+                            }
+                        },
+                        {
+                            "start_date": {
+                                "year": "2024",
+                                "month": "7",
+                                "day": "16"
+                            },
+                            "text": {
+                                "headline": "Bentrokan di Papua Tengah",
+                                "text": "Tiga terduga anggota gerakan Papua Merdeka tewas dalam bentrokan dengan TNI di Karubate, Papua Tengah."
+                            },
+                            "media": {
+                                "url": "https://cdn.antaranews.com/cache/1200x800/2025/10/15/FotoJet-41.jpg",
+                                "caption": "Polisi cegah dua kelompok massa bentrok di Kwamki Lama - ANTARA ...",
+                                "credit": "ANTARA News Bengkulu",
+                                "link": "https://bengkulu.antaranews.com/berita/443993/polisi-cegah-dua-kelompok-massa-bentrok-di-kwamki-lama"
+                            }
+                        },
+                        {
+                            "start_date": {
+                                "year": "2024",
+                                "month": "7",
+                                "day": "19"
+                            },
+                            "text": {
+                                "headline": "Helikopter Wisata Jatuh di Bali",
+                                "text": "Tiga orang terluka setelah helikopter wisata jatuh di dekat Pecatu, Bali."
+                            },
+                            "media": {
+                                "url": "https://cdn.antaranews.com/cache/1200x800/2024/07/19/Helikopter-Jatuh-Di-Bali-190724-fik-10.jpg",
+                                "caption": "Helikopter wisata di Bali jatuh terlilit tali layang-layang ...",
+                                "credit": "Ramadhan - ANTARA News",
+                                "link": "https://ramadhan.antaranews.com/foto/4206375/helikopter-wisata-di-bali-jatuh-terlilit-tali-layang-layang"
+                            }
+                        },
+                        {
+                            "start_date": {
+                                "year": "2024",
+                                "month": "7",
+                                "day": "26"
+                            },
+                            "text": {
+                                "headline": "Peraturan Pemerintah tentang Reformasi Kesehatan",
+                                "text": "Presiden Joko Widodo menandatangani Peraturan Pemerintah Nomor 28 Tahun 2024 yang melarang mutilasi genital perempuan dan penjualan rokok batangan, serta melegalkan aborsi pada trimester pertama untuk keadaan darurat medis."
+                            },
+                            "media": {
+                                "url": "https://ppnijaktim.org/wp-content/uploads/2024/08/Pemerintah-Terbitkan-Aturan-Pelaksana-UU-Kesehatan.webp",
+                                "caption": "Pemerintah Terbitkan Aturan Pelaksana UU No 17 Tahun 2023 Tentang ...",
+                                "credit": "DPD PPNI JAKARTA TIMUR",
+                                "link": "https://ppnijaktim.org/pemerintah-terbitkan-aturan-pelaksana-uu-no-17-tahun-2023-tentang-kesehatan-pp-no-28-tahun-2024/"
+                            }
+                        },
+                        {
+                            "start_date": {
+                                "year": "2024",
+                                "month": "7",
+                                "day": "31"
+                            },
+                            "text": {
+                                "headline": "Penangkapan Anggota ISIS di Jawa Timur",
+                                "text": "Seorang anggota ISIS berusia 19 tahun ditangkap oleh Detasemen 88 di Batu, Jawa Timur, saat merencanakan serangan bom bunuh diri."
+                            },
+                            "media": {
+                                "url": "https://jogja.polri.go.id/kulonprogo/file/WhatsApp-Image-2024-08-01-at-14.39.50.jpeg",
+                                "caption": "Polri Tangkap Calon Pengantin Bom Bunuh Diri di Batu Malang",
+                                "credit": "Polri",
+                                "link": "https://jogja.polri.go.id/kulonprogo/tribrata-news/online/detail/polri-tangkap---calon-pengantin---bom-bunuh-diri-di-batu-malang.html"
+                            }
+                        },
+                        {
+                            "start_date": {
+                                "year": "2024",
+                                "month": "8",
+                                "day": "5"
+                            },
+                            "text": {
+                                "headline": "Pilot Selandia Baru Tewas di Papua",
+                                "text": "Seorang pilot helikopter dari Selandia Baru tewas setelah ditembak oleh kelompok bersenjata di Mimika, Papua Tengah."
+                            },
+                            "media": {
+                                "url": "https://www.amnesty.id/wp-content/uploads/2024/08/Pilot-Glen.jpg",
+                                "caption": "Usut tuntas pembunuhan pilot Selandia Baru di Papua • Amnesty ...",
+                                "credit": "Amnesty International Indonesia",
+                                "link": "https://www.amnesty.id/kabar-terbaru/siaran-pers/usut-tuntas-pembunuhan-pilot-selandia-baru-di-papua/08/2024/"
+                            }
+                        },
+                        {
+                            "start_date": {
+                                "year": "2024",
+                                "month": "8",
+                                "day": "7"
+                            },
+                            "text": {
+                                "headline": "Kebakaran Kapal Tanker di Bali",
+                                "text": "Kapal tanker Elisabeth terbakar di lepas pantai Karangasem, Bali, menewaskan lima awak dan melukai 15 lainnya."
+                            },
+                            "media": {
+                                "url": "https://awsimages.detik.net.id/community/media/visual/2024/08/07/proses-evakuasi-abk-korban-kebakaran-kapal-tanker-di-perairan-karangasem-bali-rabu-782024-foto-dok-polres-karangasem_169.jpeg?w=1200",
+                                "caption": "Kebakaran Kapal Tanker di Bali: PT Akan Kooperatif-Kondisi Luka ...",
+                                "credit": "detikcom",
+                                "link": "https://www.detik.com/bali/berita/d-7480783/kebakaran-kapal-tanker-di-bali-pt-akan-kooperatif-kondisi-luka-bakar-korban"
+                            }
+                        },
+                        {
+                            "start_date": {
+                                "year": "2024",
+                                "month": "8",
+                                "day": "8"
+                            },
+                            "text": {
+                                "headline": "Medali Emas Olimpiade Paris 2024",
+                                "text": "Veddriq Leonardo meraih medali emas pertama Indonesia di Olimpiade Paris 2024 dalam kategori panjat tebing cepat."
+                            },
+                            "media": {
+                                "url": "https://img.antarafoto.com/cache/1200x799/2024/08/08/olimpiade-paris-2024-veddriq-leonardo-raih-medali-emas-1crpf-dom.jpg",
+                                "caption": "Olimpiade Paris 2024 : Veddriq Leonardo raih medali emas | ANTARA Foto",
+                                "credit": "ANTARA Foto",
+                                "link": "https://www.antarafoto.com/fr/view/2275395/olimpiade-paris-2024-veddriq-leonardo-raih-medali-emas"
+                            }
+                        },
+                        {
+                            "start_date": {
+                                "year": "2024",
+                                "month": "8",
+                                "day": "12"
+                            },
+                            "text": {
+                                "headline": "Rapat Kabinet di Nusantara",
+                                "text": "Joko Widodo menggelar rapat kabinet di Nusantara, menandai awal transisi kekuasaan politik dari Jakarta ke Nusantara."
+                            },
+                            "media": {
+                                "url": "https://selayar.quarta.id/wp-content/uploads/2024/08/rapat-ikn.jpg",
+                                "caption": "Presiden Jokowi Pimpin Sidang Kabinet Perdana di IKN, Bahas ...",
+                                "credit": "QUARTA",
+                                "link": "https://selayar.quarta.id/nasional/presiden-jokowi-pimpin-sidang-kabinet-perdana-di-ikn-bahas-strategi-pertumbuhan-ekonomi/"
+                            }
+                        },
+                        {
+                            "start_date": {
+                                "year": "2024",
+                                "month": "8",
+                                "day": "15"
+                            },
+                            "text": {
+                                "headline": "Koalisi Prabowo Mendominasi MPR",
+                                "text": "Presiden terpilih Prabowo Subianto mengamankan mayoritas di MPR setelah Partai NasDem bergabung dengan koalisinya."
+                            },
+                            "media": {
+                                "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/04/2024_Indonesian_presidential_election_results_map_by_district.svg/500px-2024_Indonesian_presidential_election_results_map_by_district.svg.png",
+                                "caption": "2024 Indonesian general election - Wikipedia",
+                                "credit": "Wikipedia, the free encyclopedia",
+                                "link": "https://en.wikipedia.org/wiki/2024_Indonesian_general_election"
+                            }
+                        },
+                        {
+                            "start_date": {
+                                "year": "2024",
+                                "month": "8",
+                                "day": "17"
+                            },
+                            "text": {
+                                "headline": "HUT RI di Jakarta dan Nusantara",
+                                "text": "Untuk pertama kalinya, perayaan Hari Kemerdekaan Indonesia digelar secara bersamaan di Jakarta dan Nusantara."
+                            },
+                            "media": {
+                                "url": "https://imgs.mongabay.com/wp-content/uploads/sites/20/2024/08/27084122/Upacara_HUT_ke-79_RI_di_Istana_Garuda_Nusantara_IKN_-_2024.jpg",
+                                "caption": "Indonesia's new 'green' capital drives environmental damage far ...",
+                                "credit": "Mongabay",
+                                "link": "https://news.mongabay.com/2024/08/indonesias-new-green-capital-drives-environmental-damage-far-and-wide/"
+                            }
+                        },
+                        {
+                            "start_date": {
+                                "year": "2024",
+                                "month": "8",
+                                "day": "19"
+                            },
+                            "text": {
+                                "headline": "Reshuffle Kabinet Jokowi",
+                                "text": "Presiden Joko Widodo melakukan reshuffle kabinet dengan melantik tiga menteri baru."
+                            },
+                            "media": {
+                                "url": "https://statik.tempo.co/data/2024/08/19/id_1328925/1328925_720.jpg",
+                                "caption": "Jokowi Reshuffles Cabinet, Appoints 3 New Ministers - News En.tempo.co",
+                                "credit": "Tempo.co English",
+                                "link": "https://en.tempo.co/read/1905666/jokowi-reshuffles-cabinet-appoints-3-new-ministers"
+                            }
+                        },
+                        {
+                            "start_date": {
+                                "year": "2024",
+                                "month": "8",
+                                "day": "20"
+                            },
+                            "text": {
+                                "headline": "DPR Tolak Putusan MK tentang Batas Usia Calon Kepala Daerah",
+                                "text": "DPR menolak putusan Mahkamah Konstitusi tentang batas usia calon kepala daerah."
+                            },
+                            "media": {
+                                "url": "https://unair.ac.id/wp-content/uploads/2024/08/Foto-1-Pakar-Hukum-UNAIR-Soroti-Dampak-Putusan-MK-Bagi-Pelaksanaan-Pilkada-2024.webp",
+                                "caption": "Pakar Hukum UNAIR Soroti Dampak Putusan MK terhadap Pelaksanaan ...",
+                                "credit": "Universitas Airlangga",
+                                "link": "https://unair.ac.id/pakar-hukum-unair-soroti-dampak-putusan-mk-terhadap-pelaksanaan-pilkada/"
+                            }
+                        },
+                        {
+                            "start_date": {
+                                "year": "2024",
+                                "month": "8",
+                                "day": "21"
+                            },
+                            "text": {
+                                "headline": "MK Batalkan Ambang Batas Parpol di Pemilu",
+                                "text": "Mahkamah Konstitusi membatalkan ambang batas 20% bagi parpol untuk mengajukan calon di pemilu DPRD, memicu protes dan kekhawatiran krisis konstitusi."
+                            },
+                            "media": {
+                                "url": "https://sumsel.kemenkum.go.id/images/-2025/Januari/3/Menko_Yusril_Pemerintah_Hormati_Putusan_MK_yang_Batalkan_Presidential_Threshold_1.jpg",
+                                "caption": "Menko Yusril: Pemerintah Hormati Putusan MK yang Batalkan ...",
+                                "credit": "Kemenkumham Sumsel",
+                                "link": "https://sumsel.kemenkum.go.id/berita-utama/menko-yusril-pemerintah-hormati-putusan-mk-yang-batalkan-presidential-threshold"
+                            }
+                        },
+                        {
+                            "start_date": {
+                                "year": "2024",
+                                "month": "8",
+                                "day": "22"
+                            },
+                            "text": {
+                                "headline": "Protes Perubahan UU Pemilu Lokal",
+                                "text": "Ribuan orang berkumpul di luar gedung DPR di Jakarta dan kota-kota besar lainnya untuk memprotes perubahan UU Pemilu Lokal yang menguntungkan koalisi pemerintah."
+                            },
+                            "media": {
+                                "url": "https://ugm.ac.id/wp-content/uploads/2024/08/ugm.jpg",
+                                "caption": "Revisi UU Pilkada Batal, Buah Keberhasilan Aksi Protes Mahasiswa ...",
+                                "credit": "Universitas Gadjah Mada",
+                                "link": "https://ugm.ac.id/id/berita/revisi-uu-pilkada-batal-buah-keberhasilan-aksi-protes-mahasiswa/"
+                            }
+                        },
+                        {
+                            "start_date": {
+                                "year": "2024",
+                                "month": "8",
+                                "day": "25"
+                            },
+                            "text": {
+                                "headline": "Banjir Bandang di Ternate",
+                                "text": "Tiga belas orang tewas dalam banjir bandang di Ternate."
+                            },
+                            "media": {
+                                "url": "https://www.bnpb.go.id/storage/app/media/2024%20Siaran%20Pers%20490%20UPDATE%20Banjir%20Bandang%20Kota%20Ternate16%20Warga%20Meningal%20Dunia%20Tiga%20Warga%20Dalam%20Pencarian/whatsapp-image-2024-08-25-at-094557-3.webp",
+                                "caption": "Badan Nasional Penanggulangan Bencana",
+                                "credit": "Badan Nasional Penanggulangan Bencana",
+                                "link": "https://www.bnpb.go.id/berita/update-banjir-bandang-kota-ternate-16-warga-meningal-dunia-tiga-warga-dalam-pencarian"
+                            }
+                        },
+                        {
+                            "start_date": {
+                                "year": "2024",
+                                "month": "9",
+                                "day": "3"
+                            },
+                            "text": {
+                                "headline": "Kunjungan Paus Fransiskus ke Indonesia",
+                                "text": "Paus Fransiskus melakukan kunjungan pertama ke Indonesia sejak 1989."
+                            },
+                            "media": {
+                                "url": "https://upload.wikimedia.org/wikipedia/id/c/ce/Logo_Kunjungan_Paus_Fransiskus_ke_Indonesia.jpg",
+                                "caption": "Kunjungan Paus Fransiskus ke Indonesia tahun 2024 - Wikipedia ...",
+                                "credit": "Wikipedia",
+                                "link": "https://id.wikipedia.org/wiki/Kunjungan_Paus_Fransiskus_ke_Indonesia_tahun_2024"
+                            }
+                        },
+                        {
+                            "start_date": {
+                                "year": "2024",
+                                "month": "9",
+                                "day": "3"
+                            },
+                            "text": {
+                                "headline": "Penangkapan Alice Guo di Tangerang",
+                                "text": "Alice Guo, mantan walikota yang dicari di Filipina karena diduga memata-matai China, ditangkap oleh Direktorat Jenderal Imigrasi di Tangerang."
+                            },
+                            "media": {
+                                "url": "https://awsimages.detik.net.id/visual/2024/09/04/alice-guo-buron-filipina-ditangkap-di-tangerang-banten-foto-dok-istimewa_169.jpeg?w=1200",
+                                "caption": "Siapa Alice Guo Buron dari Filipina yang Ditangkap di Tangerang?",
+                                "credit": "CNBC Indonesia",
+                                "link": "https://www.cnbcindonesia.com/market/20240904160227-17-569124/siapa-alice-guo-buron-dari-filipina-yang-ditangkap-di-tangerang"
+                            }
+                        },
+                        {
+                            "start_date": {
+                                "year": "2024",
+                                "month": "9",
+                                "day": "9"
+                            },
+                            "text": {
+                                "headline": "PON 2024 di Aceh dan Sumatra Utara",
+                                "text": "Pekan Olahraga Nasional (PON) ke-21 digelar di Aceh dan Sumatra Utara."
+                            },
+                            "media": {
+                                "url": "https://awsimages.detik.net.id/community/media/visual/2024/07/04/logo-pon-xxi-2024-aceh-sumut.png?w=800",
+                                "caption": "Serba-serbi Logo, Maskot, dan Tagline PON XXI 2024 Aceh-Sumut",
+                                "credit": "detikNews - detikcom",
+                                "link": "https://news.detik.com/berita/d-7423069/serba-serbi-logo-maskot-dan-tagline-pon-xxi-2024-aceh-sumut"
+                            }
+                        },
+                        {
+                            "start_date": {
+                                "year": "2024",
+                                "month": "9",
+                                "day": "18"
+                            },
+                            "text": {
+                                "headline": "Gempa Bumi di Bandung",
+                                "text": "Gempa bumi berkekuatan M 5,0 mengguncang Kertasari, Kabupaten Bandung, menewaskan dua orang dan melukai lebih dari 100 orang."
+                            },
+                            "media": {
+                                "url": "https://akcdn.detik.net.id/visual/2024/09/18/dampak-gempa-kertasari-kabupaten-bandung-5_169.jpeg?w=1200",
+                                "caption": "FOTO: Luluh Lantak Kabupaten Bandung Diguncang Gempa M 5,0",
+                                "credit": "CNN Indonesia",
+                                "link": "https://www.cnnindonesia.com/nasional/20240918160044-22-1145694/foto-luluh-lantak-kabupaten-bandung-diguncang-gempa-m-50"
+                            }
+                        },
+                        {
+                            "start_date": {
+                                "year": "2024",
+                                "month": "9",
+                                "day": "21"
+                            },
+                            "text": {
+                                "headline": "Pilot Selandia Baru Dibebaskan di Papua",
+                                "text": "Philip Mehrtens, pilot Susi Air dari Selandia Baru yang disandera oleh Tentara Pembebasan Nasional Papua Barat, dibebaskan."
+                            },
+                            "media": {
+                                "url": "https://live-production.wcms.abc-cdn.net.au/2b254b50026e2b8e13207a3ef0125642?impolicy=wcms_crop_resize&cropH=585&cropW=1040&xPos=0&yPos=22&width=862&height=485",
+                                "caption": "Dunia Hari Ini: Akankah Pilot Selandia Baru Dibebaskan dari Papua ...",
+                                "credit": "ABC News",
+                                "link": "https://www.abc.net.au/indonesian/2024-02-08/akankah-pilot-selandia-baru-dibebaskan-dari-papua-barat/103442646"
+                            }
+                        },
+                        {
+                            "start_date": {
+                                "year": "2024",
+                                "month": "9",
+                                "day": "22"
+                            },
+                            "text": {
+                                "headline": "Tewasnya Remaja di Bekasi",
+                                "text": "Tujuh remaja ditemukan tewas mengambang di sungai di Bekasi, diduga akibat perkelahian jalanan."
+                            },
+                            "media": {
+                                "url": "https://asset.kompas.com/crops/DbT7NGBks9JH6jU3mCkG1eeA-XI=/68x0:730x441/1200x800/data/photo/2024/09/22/66ef9c2f69b9a.png",
+                                "caption": "Duduk Perkara Tewasnya 7 Remaja di Kali Bekasi",
+                                "credit": "kompas megapolitan",
+                                "link": "https://megapolitan.kompas.com/read/2024/09/23/16454571/duduk-perkara-tewasnya-7-remaja-di-kali-bekasi"
+                            }
+                        },
+                        {
+                            "start_date": {
+                                "year": "2024",
+                                "month": "9",
+                                "day": "23"
+                            },
+                            "text": {
+                                "headline": "Kecelakaan Maut di Banyuwangi",
+                                "text": "Mobil yang membawa 18 orang bertabrakan dengan truk derek di Banyuwangi, menewaskan empat orang dan melukai 14 lainnya."
+                            },
+                            "media": {
+                                "url": "https://www.suarasurabaya.net/wp-content/uploads/2024/09/460958968_8563185687073483_17008520639589381_n.jpg",
+                                "caption": "Kecelakaan Maut di Banyuwangi: Minibus Elf Tabrak Mobil Towing ...",
+                                "credit": "Suara Surabaya",
+                                "link": "https://www.suarasurabaya.net/kelanakota/2024/kecelakaan-maut-di-banyuwangi-minibus-elf-tabrak-mobil-towing-empat-orang-meninggal-dunia/"
+                            }
+                        },
+                        {
+                            "start_date": {
+                                "year": "2024",
+                                "month": "9",
+                                "day": "27"
+                            },
+                            "text": {
+                                "headline": "Longsor di Tambang Emas Ilegal di Sumatra Barat",
+                                "text": "Setidaknya 15 orang tewas dalam longsor di tambang emas ilegal di Kabupaten Solok, Sumatra Barat."
+                            },
+                            "media": {
+                                "url": "https://pulitzercenter.org/sites/default/files/styles/768x600/public/2024-01/3.jpeg.webp?itok=1hgp0dI7",
+                                "caption": "Kerinci Seblat National Park's Biodiversity Threatened by Illegal ...",
+                                "credit": "Pulitzer Center",
+                                "link": "https://pulitzercenter.org/stories/kerinci-seblat-national-parks-biodiversity-threatened-illegal-gold-mining-bahasa-indonesia?form=donate"
+                            }
+                        },
+                        {
+                            "start_date": {
+                                "year": "2024",
+                                "month": "10",
+                                "day": "1"
+                            },
+                            "text": {
+                                "headline": "Pelantikan Anggota DPR 2024-2029",
+                                "text": "580 anggota DPR terpilih periode 2024-2029 dilantik di Jakarta."
+                            },
+                            "media": {
+                                "url": "https://i.ytimg.com/vi/rNPzcLDVnBQ/maxresdefault.jpg",
+                                "caption": "[FULL] Detik-Detik Pelantikan Anggota DPR RI Periode 2024-2029",
+                                "credit": "YouTube",
+                                "link": "https://www.youtube.com/watch?v=rNPzcLDVnBQ"
+                            }
+                        },
+                        {
+                            "start_date": {
+                                "year": "2024",
+                                "month": "10",
+                                "day": "8"
+                            },
+                            "text": {
+                                "headline": "Gubernur Kalimantan Selatan Jadi Tersangka Korupsi",
+                                "text": "Gubernur Kalimantan Selatan, Sahbirin Noor, dan enam orang lainnya ditetapkan sebagai tersangka oleh KPK karena terlibat suap."
+                            },
+                            "media": {
+                                "url": "https://i.ytimg.com/vi/FUR3-Ecnj34/maxresdefault.jpg",
+                                "caption": "Sosok Gubernur Kalimantan Selatan Jadi Tersangka Korupsi",
+                                "credit": "YouTube",
+                                "link": "https://www.youtube.com/watch?v=FUR3-Ecnj34"
+                            }
+                        },
+                        {
+                            "start_date": {
+                                "year": "2024",
+                                "month": "10",
+                                "day": "10"
+                            },
+                            "text": {
+                                "headline": "Penangkapan WNA China di Bali",
+                                "text": "LQ, WNA China yang dicari karena menjalankan skema investasi palsu senilai Rp 210 triliun, ditangkap di Bandara Ngurah Rai, Bali."
+                            },
+                            "media": {
+                                "url": "https://cdn.antaranews.com/cache/1200x800/2024/07/12/IMG-20240712-WA0005_1.jpg.webp",
+                                "caption": "Imigrasi di Bali dalami penangkapan 10 WNA China - ANTARA News",
+                                "credit": "ANTARA News",
+                                "link": "https://www.antaranews.com/berita/4195245/imigrasi-di-bali-dalami-penangkapan-10-wna-china"
+                            }
+                        },
+                        {
+                            "start_date": {
+                                "year": "2024",
+                                "month": "10",
+                                "day": "15"
+                            },
+                            "text": {
+                                "headline": "Museum Nasional Indonesia Dibuka Kembali",
+                                "text": "Museum Nasional Indonesia dibuka kembali setelah renovasi akibat kebakaran besar pada September 2023."
+                            },
+                            "media": {
+                                "url": "https://awsimages.detik.net.id/community/media/visual/2024/09/17/kondisi-museum-nasional-pada-selasa-1792024-5.jpeg?w=1200",
+                                "caption": "Museum Nasional Kembali Dibuka buat Publik 15 Oktober 2024!",
+                                "credit": "detikcom",
+                                "link": "https://www.detik.com/edu/detikpedia/d-7545102/museum-nasional-kembali-dibuka-buat-publik-15-oktober-2024"
+                            }
+                        },
+                        {
+                            "start_date": {
+                                "year": "2024",
+                                "month": "10",
+                                "day": "20"
+                            },
+                            "text": {
+                                "headline": "Pelantikan Prabowo Subianto dan Gibran Rakabuming Raka",
+                                "text": "Prabowo Subianto dan Gibran Rakabuming Raka dilantik sebagai Presiden dan Wakil Presiden Indonesia ke-8 dan ke-14."
+                            },
+                            "media": {
+                                "url": "https://www.kemhan.go.id/wp-content/uploads/2024/10/IMG-20241021-WA0013.jpg",
+                                "caption": "Kementerian Pertahanan Republik Indonesia",
+                                "credit": "Kementerian Pertahanan Republik Indonesia",
+                                "link": "https://www.kemhan.go.id/2024/10/21/pelantikan-prabowo-subianto-dan-gibran-rakabuming-raka-sebagai-presiden-dan-wakil-presiden-ri-2024-2029.html"
+                            }
+                        },
+                        {
+                            "start_date": {
+                                "year": "2024",
+                                "month": "10",
+                                "day": "21"
+                            },
+                            "text": {
+                                "headline": "Kabinet Merah Putih Prabowo",
+                                "text": "Prabowo Subianto mengumumkan Kabinet Merah Putih, kabinet terbesar dalam sejarah Indonesia dengan 109 anggota."
+                            },
+                            "media": {
+                                "url": "https://upload.wikimedia.org/wikipedia/commons/3/3e/Kabinet_Merah_Putih_Prabowo-Gibran_2024.jpg",
+                                "caption": "Red and White Cabinet - Wikipedia",
+                                "credit": "Wikipedia",
+                                "link": "https://en.wikipedia.org/wiki/Red_and_White_Cabinet"
+                            }
+                        },
+                        {
+                            "start_date": {
+                                "year": "2024",
+                                "month": "10",
+                                "day": "31"
+                            },
+                            "text": {
+                                "headline": "Pengungsi Rohingya Tewas di Aceh",
+                                "text": "Enam pengungsi Rohingya ditemukan tewas sementara 90 lainnya terdampar di lepas pantai Aceh Timur."
+                            },
+                            "media": {
+                                "url": "https://gdb.voanews.com/01000000-0aff-0242-e488-08dc4d5bd28a_cx0_cy10_cw0_w408_r1_s.jpg",
+                                "caption": "Korban Tewas Rohingya di Perairan Aceh Jaya Terus Bertambah",
+                                "credit": "VOA Indonesia",
+                                "link": "https://www.voaindonesia.com/a/korban-tewas-rohingya-di-perairan-aceh-jaya-terus-bertambah/7542714.html"
+                            }
+                        },
+                        {
+                            "start_date": {
+                                "year": "2024",
+                                "month": "11",
+                                "day": "1"
+                            },
+                            "text": {
+                                "headline": "Kebakaran Pabrik Minyak Goreng di Bekasi",
+                                "text": "Delapan orang tewas dalam kebakaran di pabrik minyak goreng di Bekasi."
+                            },
+                            "media": {
+                                "url": "https://akcdn.detik.net.id/visual/2024/11/01/kebakaran-pabrik-minyak-goreng-di-bekasi-2_169.jpeg?w=1200",
+                                "caption": "8 Jam Kebakaran Pabrik Minyak Goreng di Bekasi, Api Belum Padam",
+                                "credit": "CNN Indonesia",
+                                "link": "https://www.cnnindonesia.com/nasional/20241101160911-20-1162058/8-jam-kebakaran-pabrik-minyak-goreng-di-bekasi-api-belum-padam"
+                            }
+                        },
+                        {
+                            "start_date": {
+                                "year": "2024",
+                                "month": "11",
+                                "day": "4"
+                            },
+                            "text": {
+                                "headline": "Erupsi Gunung Lewotobi Laki-Laki",
+                                "text": "Gunung Lewotobi Laki-Laki di Flores meletus, menewaskan setidaknya sembilan orang."
+                            },
+                            "media": {
+                                "url": "https://cdn.antaranews.com/cache/1200x800/2024/06/16/1000023505.jpg",
+                                "caption": "Gunung Lewotobi Laki-laki erupsi setinggi 1.000 meter - ANTARA ...",
+                                "credit": "ANTARA News Kalsel",
+                                "link": "https://kalsel.antaranews.com/berita/418212/gunung-lewotobi-laki-laki-erupsi-setinggi-1000-meter"
+                            }
+                        },
+                        {
+                            "start_date": {
+                                "year": "2024",
+                                "month": "11",
+                                "day": "5"
+                            },
+                            "text": {
+                                "headline": "Apple Minta Libur Pajak 50 Tahun",
+                                "text": "Apple meminta libur pajak 50 tahun sebagai syarat investasi di Indonesia, memicu penolakan dari Komisi VI DPR."
+                            },
+                            "media": {
+                                "url": "https://id1.dpi.or.id/uploads/images/2024/11/image_750x395_672a461988cbb_1.jpg",
+                                "caption": "Hidayat Kampai: Apple Minta Tax Holiday 50 Tahun? Saatnya ...",
+                                "credit": "Grab",
+                                "link": "https://grab.or.id/hidayat-kampai-apple-minta-tax-holiday-50-tahun-saatnya-indonesia-bersikap"
+                            }
+                        },
+                        {
+                            "start_date": {
+                                "year": "2024",
+                                "month": "11",
+                                "day": "24"
+                            },
+                            "text": {
+                                "headline": "Longsor dan Banjir Bandang di Sumatra Utara",
+                                "text": "Setidaknya 20 orang tewas dan dua hilang akibat longsor dan banjir bandang di Sumatra Utara."
+                            },
+                            "media": {
+                                "url": "https://awsimages.detik.net.id/community/media/visual/2024/11/26/foto-kerusakan-akibat-banjir-bandang-di-karo-sumatera-utara-1_169.jpeg?w=700&q=90",
+                                "caption": "Foto Kerusakan Akibat Banjir Bandang di Karo Sumatera Utara",
+                                "credit": "detikNews - Detikcom",
+                                "link": "https://news.detik.com/foto-news/d-7657303/foto-kerusakan-akibat-banjir-bandang-di-karo-sumatera-utara"
+                            }
+                        },
+                        {
+                            "start_date": {
+                                "year": "2024",
+                                "month": "11",
+                                "day": "26"
+                            },
+                            "text": {
+                                "headline": "Penangkapan WNA Filipina di Bali",
+                                "text": "Hector Aldwin Pantollana, WNA Filipina yang dicari karena menjalankan skema investasi palsu senilai $67,7 juta, ditangkap di Bandara Ngurah Rai, Bali."
+                            },
+                            "media": {
+                                "url": "https://i.ytimg.com/vi/Z2BORHXJhTU/hq720.jpg?sqp=-oaymwEhCK4FEIIDSFryq4qpAxMIARUAAAAAGAElAADIQj0AgKJD&rs=AOn4CLCdVvLfHowPmYmndTPlvvW1Rvd9tA",
+                                "caption": "WNA Filipina Hector Aldwin Ditangkap Interpol di Bali",
+                                "credit": "YouTube",
+                                "link": "https://www.youtube.com/watch?v=Z2BORHXJhTU"
+                            }
+                        },
+                        {
+                            "start_date": {
+                                "year": "2024",
+                                "month": "11",
+                                "day": "27"
+                            },
+                            "text": {
+                                "headline": "Pemilu Lokal 2024",
+                                "text": "Pemilu lokal 2024 digelar serentak di lebih dari 435.000 TPS di seluruh Indonesia."
+                            },
+                            "media": {
+                                "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/04/2024_Indonesian_presidential_election_results_map_by_district.svg/500px-2024_Indonesian_presidential_election_results_map_by_district.svg.png",
+                                "caption": "2024 Indonesian general election - Wikipedia",
+                                "credit": "Wikipedia, the free encyclopedia",
+                                "link": "https://en.wikipedia.org/wiki/2024_Indonesian_general_election"
+                            }
+                        },
+                        {
+                            "start_date": {
+                                "year": "2024",
+                                "month": "11",
+                                "day": "28"
+                            },
+                            "text": {
+                                "headline": "Longsor di Medan",
+                                "text": "Bus yang berangkat dari Medan ke Berastagi terjebak longsor, menewaskan tujuh orang dan melukai sepuluh lainnya."
+                            },
+                            "media": {
+                                "url": "https://akcdn.detik.net.id/visual/2024/11/25/bencana-tanah-longsor-di-karo-1_169.jpeg?w=400&q=90",
+                                "caption": "Longsor di Jalur Medan-Berastagi: 3 Orang Meninggal, Jalan Tutup Total",
+                                "credit": "CNN Indonesia",
+                                "link": "https://www.cnnindonesia.com/nasional/20241127125203-20-1171163/longsor-di-jalur-medan-berastagi-3-orang-meninggal-jalan-tutup-total"
+                            }
+                        },
+                        {
+                            "start_date": {
+                                "year": "2024",
+                                "month": "11",
+                                "day": "30"
+                            },
+                            "text": {
+                                "headline": "Kapal Pengungsi Rohingya Tenggelam di Aceh",
+                                "text": "Kapal yang membawa pengungsi Rohingya tenggelam di lepas pantai Aceh, 116 penumpang diselamatkan oleh nelayan lokal."
+                            },
+                            "media": {
+                                "url": "https://gdb.voanews.com/01000000-0aff-0242-c964-08dc49b52a9a_w408_r1_s.jpeg",
+                                "caption": "Kapal Pengungsi Rohingya Terbalik di Perairan Aceh Barat, Basarnas ...",
+                                "credit": "VOA Indonesia",
+                                "link": "https://www.voaindonesia.com/a/kapal-pengungsi-rohingya-terbalik-di-perairan-aceh-barat-basarnas-selamatkan-69-orang/7536991.html"
+                            }
+                        },
+                        {
+                            "start_date": {
+                                "year": "2024",
+                                "month": "12",
+                                "day": "2"
+                            },
+                            "text": {
+                                "headline": "Penangkapan WNA China di Batam",
+                                "text": "Yan Zhenxing, WNA China yang dicari karena menjalankan jaringan perjudian online ilegal senilai Rp 284 triliun, ditangkap di terminal feri Batam."
+                            },
+                            "media": {
+                                "url": "https://www.batamnews.co.id/foto_berita/2024/10/2024-10-30-sepasang-wna-china-ditangkap-saat-diselundupkan-dari-malaysia-ke-batam-terancam-1-tahun-penjara.jpg",
+                                "caption": "Sepasang WNA China Ditangkap Saat Diselundupkan dari Malaysia ke ...",
+                                "credit": "Batamnews",
+                                "link": "https://www.batamnews.co.id/berita-115413-sepasang-wna-china-ditangkap-saat-diselundupkan-dari-malaysia-ke-batam-terancam-1-tahun-penjara.html"
+                            }
+                        },
+                        {
+                            "start_date": {
+                                "year": "2024",
+                                "month": "12",
+                                "day": "4"
+                            },
+                            "text": {
+                                "headline": "Kebaya Ditetapkan sebagai Warisan Budaya UNESCO",
+                                "text": "Kebaya diakui sebagai bagian dari daftar Warisan Budaya Takbenda UNESCO."
+                            },
+                            "media": {
+                                "url": "https://uici.ac.id/wp-content/uploads/2024/12/20241206_075849_0000.png",
+                                "caption": "Kebaya Ditetapkan sebagai Warisan Budaya Takbenda UNESCO, Ini ...",
+                                "credit": "UICI",
+                                "link": "https://uici.ac.id/kebaya-ditetapkan-sebagai-warisan-takbenda-unesco-ini-sejarah-dan-jenis-jenisnya/"
+                            }
+                        },
+                        {
+                            "start_date": {
+                                "year": "2024",
+                                "month": "12",
+                                "day": "6"
+                            },
+                            "text": {
+                                "headline": "Gus Miftah Mengundurkan Diri",
+                                "text": "Gus Miftah mengundurkan diri sebagai Utusan Khusus Presiden Prabowo Subianto setelah video dirinya merendahkan penjual es teh beredar."
+                            },
+                            "media": {
+                                "url": "https://cdn.lampusatu.com/2024/12/Gus-Miftah-6-Desember-2024.webp",
+                                "caption": "Buntut Hina Penjual Es Teh, Gus Miftah Mundur dari Jabatan Utusan ...",
+                                "credit": "Lampusatu.com",
+                                "link": "https://www.lampusatu.com/headline/buntut-hina-penjual-es-teh-gus-miftah-mundur-dari-jabatan-utusan-khusus-presiden/"
+                            }
+                        },
+                        {
+                            "start_date": {
+                                "year": "2024",
+                                "month": "12",
+                                "day": "9"
+                            },
+                            "text": {
+                                "headline": "Banjir dan Longsor di Sukabumi",
+                                "text": "Setidaknya sepuluh orang tewas dan dua hilang akibat banjir dan longsor di Kabupaten Sukabumi, Jawa Barat."
+                            },
+                            "media": {
+                                "url": "https://akcdn.detik.net.id/visual/2024/12/06/banjir-bandang-di-kabupaten-sukabumi_169.jpeg?w=400&q=90",
+                                "caption": "Update Banjir dan Longsor Sukabumi: 5 Orang Tewas dan 7 Hilang",
+                                "credit": "CNN Indonesia",
+                                "link": "https://www.cnnindonesia.com/nasional/20241207025435-20-1174685/update-banjir-dan-longsor-sukabumi-5-orang-tewas-dan-7-hilang"
+                            }
+                        },
+                        {
+                            "start_date": {
+                                "year": "2024",
+                                "month": "12",
+                                "day": "11"
+                            },
+                            "text": {
+                                "headline": "Merger XL Axiata, Smartfren, dan SmartTel",
+                                "text": "XL Axiata, Smartfren, dan SmartTel resmi bergabung membentuk entitas telekomunikasi baru bernama XLSmart."
+                            },
+                            "media": {
+                                "url": "https://statik.tempo.co/data/2024/12/11/id_1361215/1361215_720.jpg",
+                                "caption": "IDX Explanation of XL Axiata and Smartfren Merger - News En.tempo.co",
+                                "credit": "Tempo.co English",
+                                "link": "https://en.tempo.co/read/1951953/idx-explanation-of-xl-axiata-and-smartfren-merger"
+                            }
+                        },
+                        {
+                            "start_date": {
+                                "year": "2024",
+                                "month": "12",
+                                "day": "15"
+                            },
+                            "text": {
+                                "headline": "Anggota Bali Nine Kembali ke Australia",
+                                "text": "Lima anggota terakhir Bali Nine yang dipenjara di Indonesia dikembalikan ke Australia."
+                            },
+                            "media": {
+                                "url": "https://live-production.wcms.abc-cdn.net.au/15d7c5fa83639835253bca902e4a10ea?src",
+                                "caption": "Lima Anggota Bali Nine Sudah Kembali dan Akan Hidup Bebas di ...",
+                                "credit": "ABC News",
+                                "link": "https://www.abc.net.au/indonesian/2024-12-16/tahanan-bali-nine-dikembalikan-ke-australia/104729136"
+                            }
+                        },
+                        {
+                            "start_date": {
+                                "year": "2024",
+                                "month": "12",
+                                "day": "18"
+                            },
+                            "text": {
+                                "headline": "Mary Jane Veloso Kembali ke Filipina",
+                                "text": "Mary Jane Veloso, WNA Filipina yang dihukum mati di Indonesia karena kasus narkoba, dikembalikan ke Filipina setelah kesepakatan bilateral."
+                            },
+                            "media": {
+                                "url": "https://lookaside.instagram.com/seo/google_widget/crawler/?media_id=3525151540128981767",
+                                "caption": "Pemindahan terpidana Mary Jane ke Filipina Slide : 1,2,3. Warga ...",
+                                "credit": "Instagram",
+                                "link": "https://www.instagram.com/p/DDr2qhbTl99/"
+                            }
+                        }
+                    ]
+                };
+
+                // Month names for display
+                const monthNames = [
+                    "Januari", "Februari", "Maret", "April", "Mei", "Juni",
+                    "Juli", "Agustus", "September", "Oktober", "November", "Desember"
+                ];
+
+                // Sort events by date
+                data.events.sort((a, b) => {
+                    const dateA = new Date(`${a.start_date.year}-${a.start_date.month}-${a.start_date.day}`);
+                    const dateB = new Date(`${b.start_date.year}-${b.start_date.month}-${b.start_date.day}`);
+                    return dateA - dateB;
+                });
+
+                // Group events by month
+                const eventsByMonth = {};
+                data.events.forEach(event => {
+                    const month = parseInt(event.start_date.month);
+                    if (!eventsByMonth[month]) {
+                        eventsByMonth[month] = [];
+                    }
+                    eventsByMonth[month].push(event);
+                });
+
+                // Build the timeline HTML
+                const timelineContent = document.getElementById('timeline-content');
+                let currentMonth = 0;
+
+                // Loop through months from 1 to 12
+                for (let month = 1; month <= 12; month++) {
+                    // Add month separator if there are events in this month
+                    if (eventsByMonth[month]) {
+                        const monthSeparator = document.createElement('div');
+                        monthSeparator.className = 'month-separator';
+                        monthSeparator.innerHTML = `<div class="month-label">${monthNames[month - 1]} 2024</div>`;
+                        timelineContent.appendChild(monthSeparator);
+
+                        // Add events for this month
+                        eventsByMonth[month].forEach((event, index) => {
+                            const eventElement = document.createElement('div');
+                            eventElement.className = 'timeline-event';
+
+                            const day = event.start_date.day;
+                            const monthNum = event.start_date.month;
+                            const year = event.start_date.year;
+
+                            eventElement.innerHTML = `
+                            <div class="event-content">
+                                <div class="event-date">
+                                    <div class="day">${day}</div>
+                                    <div class="month">${monthNames[monthNum - 1].substring(0, 3).toUpperCase()}</div>
+                                </div>
+                                <h3 class="event-headline">${event.text.headline}</h3>
+                                <p class="event-description">${event.text.text}</p>
+                                ${event.media ? `
+                                    <div class="event-media">
+                                        <img src="${event.media.url}" alt="${event.media.caption}">
+                                        <div class="media-caption">${event.media.caption}</div>
+                                        <div class="media-credit">Credit: ${event.media.credit}</div>
+                                        <a href="${event.media.link}" target="_blank" class="media-link">Read more <i class="fas fa-external-link-alt"></i></a>
+                                    </div>
+                                ` : ''}
+                            </div>
+                            <div class="event-dot"></div>
+                        `;
+
+                            timelineContent.appendChild(eventElement);
+                        });
+                    }
+                }
+
+                // Hide loader when content is ready
+                setTimeout(() => {
+                    document.getElementById('loader').classList.add('hidden');
+
+                    // Add animation to timeline events when they come into view
+                    const observerOptions = {
+                        root: null,
+                        rootMargin: '0px',
+                        threshold: 0.1
+                    };
+
+                    const observer = new IntersectionObserver((entries, observer) => {
+                        entries.forEach(entry => {
+                            if (entry.isIntersecting) {
+                                entry.target.classList.add('visible');
+                                observer.unobserve(entry.target);
+                            }
+                        });
+                    }, observerOptions);
+
+                    document.querySelectorAll('.timeline-event').forEach(event => {
+                        observer.observe(event);
+                    });
+                }, 1000);
+            });
+        </script>
+    </body>
+
+</html>

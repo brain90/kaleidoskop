@@ -1,0 +1,766 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kaleidoskop Indonesia 2025</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: #f8f9fa;
+            color: #333;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        header {
+            background: linear-gradient(135deg, #1a2a6c, #b21f1f, #1a2a6c);
+            color: white;
+            padding: 0px 0;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        header::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('https://images.unsplash.com/photo-1528722828814-77b9b83aafb2?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80') center/cover;
+            opacity: 0.2;
+            z-index: -1;
+        }
+        
+        header h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 3.5rem;
+            margin-bottom: 15px;
+            letter-spacing: 1px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        
+        header p {
+            font-size: 1.2rem;
+            max-width: 800px;
+            margin: 0 auto;
+            font-weight: 300;
+        }
+        
+        .timeline-container {
+            position: relative;
+            padding: 0px 0;
+        }
+        
+        .timeline-line {
+            position: absolute;
+            left: 50%;
+            top: 0;
+            bottom: 0;
+            width: 4px;
+            background: linear-gradient(to bottom, #1a2a6c, #b21f1f);
+            transform: translateX(-50%);
+            z-index: 1;
+        }
+        
+        .month-separator {
+            text-align: center;
+            margin: 30px 0;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .month-label {
+            display: inline-block;
+            background: #1a2a6c;
+            color: white;
+            padding: 10px 30px;
+            border-radius: 30px;
+            font-weight: 500;
+            font-size: 1.2rem;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        
+        .timeline-event {
+            position: relative;
+            margin-bottom: 50px;
+            z-index: 2;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s ease;
+        }
+        
+        .timeline-event.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .event-content {
+            background: white;
+            border-radius: 10px;
+            padding: 25px;
+            width: calc(50% - 40px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        
+        .timeline-event:hover .event-content {
+            transform: scale(1.02);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.15);
+        }
+        
+        .timeline-event:nth-child(odd) .event-content {
+            margin-left: auto;
+        }
+        
+        .event-date {
+            top: 20px;
+            width: 60px;
+            height: 60px;
+            background: #b21f1f;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            font-weight: bold;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+            z-index: 3;
+        }
+        
+        .timeline-event:nth-child(odd) .event-date {
+            left: -30px;
+        }
+        
+        .timeline-event:nth-child(even) .event-date {
+            right: -30px;
+        }
+        
+        .event-date .day {
+            font-size: 1.5rem;
+            line-height: 1;
+        }
+        
+        .event-date .month {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+        }
+        
+        .event-headline {
+            font-size: 1.4rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+            color: #1a2a6c;
+        }
+        
+        .event-description {
+            margin-bottom: 20px;
+            color: #555;
+        }
+        
+        .event-media {
+            margin-top: 20px;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        
+        .event-media img {
+            width: 100%;
+            height: auto;
+            display: block;
+            transition: transform 0.3s ease;
+        }
+        
+        .event-media:hover img {
+            transform: scale(1.05);
+        }
+        
+        .media-caption {
+            padding: 10px;
+            background: #f0f0f0;
+            font-size: 0.9rem;
+            color: #666;
+            text-align: center;
+        }
+        
+        .media-credit {
+            font-style: italic;
+            font-size: 0.8rem;
+            color: #888;
+            text-align: right;
+            padding: 5px 10px;
+        }
+        
+        .media-link {
+            display: block;
+            text-align: right;
+            padding: 5px 10px;
+            color: #1a2a6c;
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: color 0.3s ease;
+        }
+        
+        .media-link:hover {
+            color: #b21f1f;
+            text-decoration: underline;
+        }
+        
+        .event-dot {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background: white;
+            border: 4px solid #1a2a6c;
+            border-radius: 50%;
+            top: 30px;
+            z-index: 3;
+        }
+        
+        .timeline-event:nth-child(odd) .event-dot {
+            left: calc(50% - 10px);
+        }
+        
+        .timeline-event:nth-child(even) .event-dot {
+            left: calc(50% - 10px);
+        }
+        
+        footer {
+            background: #1a2a6c;
+            color: white;
+            padding: 40px 0;
+            text-align: center;
+        }
+        
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 2.5rem;
+            }
+            
+            .timeline-line {
+                left: 30px;
+            }
+            
+            .timeline-event:nth-child(odd) .event-content,
+            .timeline-event:nth-child(even) .event-content {
+                width: calc(100% - 33px);
+                margin-left: 34px;
+            }
+            
+            .event-date {
+                left: 0 !important;
+                right: auto !important;
+            }
+            
+            .event-dot {
+                left: 0px !important;
+            }
+            
+            .month-label {
+                font-size: 1rem;
+                padding: 8px 20px;
+            }
+        }
+        
+        .loading-animation {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.9);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            transition: opacity 0.5s ease;
+        }
+        
+        .loading-animation.hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+        
+        .spinner {
+            width: 50px;
+            height: 50px;
+            border: 5px solid #f3f3f3;
+            border-top: 5px solid #1a2a6c;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <div class="loading-animation" id="loader">
+        <div class="spinner"></div>
+    </div>
+    
+    <header>
+        <div class="container">
+            <h2>Kaleidoskop 2025</h2>
+        </div>
+    </header>
+    
+    <main class="timeline-container">
+        <div class="timeline-line"></div>
+        <div class="container" id="timeline-content">
+            <!-- Timeline events will be inserted here -->
+        </div>
+    </main>
+    
+    <footer>
+        <div class="container">
+            <p><a href="index.html" style="color: white;">Indeks</a> </p>
+        </div>
+    </footer>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Extract data from the provided script
+            const data = {
+                "title": {
+                    "text": {
+                        "headline": "Kaleidoskop Indonesia 2025",
+                        "text": ""
+                    }
+                },
+                "events": [
+                    {
+                        "start_date": { "month": "1", "day": "6", "year": "2025" },
+                        "text": {
+                            "headline": "Indonesia Bergabung dengan BRICS",
+                            "text": "Indonesia secara resmi diterima sebagai anggota negara BRICS, menandai langkah penting dalam diplomasi ekonomi internasional."
+                        },
+                        "media": {
+                            "url": "https://eastasiaforum.org/wp-content/uploads/2025/03/2024-10-22T182626Z_1606610105_RC2UPAA656E1_RTRMADP_3_RUSSIA-BRICS-ARRIVALS-scaled-1024x682-c-default.webp",
+                            "caption": "Upacara keanggotaan BRICS",
+                            "credit": "East Asia Forum",
+                            "link": "https://eastasiaforum.org/2025/03/06/indonesias-brics-accession-underscored-by-prabowos-self-interest/"
+                        }
+                    },
+                    {
+                        "start_date": { "month": "1", "day": "21", "year": "2025" },
+                        "text": {
+                            "headline": "Banjir dan Longsor di Pekalongan",
+                            "text": "Banjir dan longsor di Pekalongan, Jawa Tengah, menewaskan setidaknya 25 orang dan menyebabkan kerusakan luas."
+                        },
+                        "media": {
+                            "url": "https://www.aljazeera.com/wp-content/uploads/2025/01/AP25023116246865-1737626252.jpg?resize=1920%2C1080",
+                            "caption": "Banjir di Pekalongan",
+                            "credit": "Al Jazeera",
+                            "link": "https://www.aljazeera.com/gallery/2025/1/23/death-toll-in-deadly-indonesia-flooding-landslides-rises-to-21"
+                        }
+                    },
+                    {
+                        "start_date": { "month": "2", "day": "17", "year": "2025" },
+                        "text": {
+                            "headline": "Dimulainya Protes 'Indonesia Gelap'",
+                            "text": "Dimulainya gerakan protes 'Indonesia Gelap' oleh mahasiswa menentang kebijakan pemerintah."
+                        },
+                        "media": {
+                            "url": "https://www.reuters.com/resizer/v2/YBLX47JP6RJLBC4EK2KYCQQRCQ.jpg?auth=c5f41287f3c8e0b7825c776c5e38520fbb3b6dac01933d0d4edcbd54927e8e00&height=1005&width=1920&quality=80&smart=true",
+                            "caption": "Protes Indonesia Gelap",
+                            "credit": "Reuters",
+                            "link": "https://www.reuters.com/world/asia-pacific/students-lead-dark-indonesia-protests-against-budget-cuts-2025-02-20/"
+                        }
+                    },
+                    {
+                        "start_date": { "month": "2", "day": "25", "year": "2025" },
+                        "text": {
+                            "headline": "Kasus Korupsi Pertamina",
+                            "text": "Kantor Kejaksaan Agung menetapkan tujuh tersangka dalam kasus korupsi PT Pertamina, dengan kerugian negara hampir Rp1 kuadriliun."
+                        },
+                        "media": {
+                            "url": "https://img.jakpost.net/c/2025/10/27/2025_10_27_168203_1761550517._large.jpg",
+                            "caption": "Skandal korupsi Pertamina",
+                            "credit": "The Jakarta Post",
+                            "link": "https://www.thejakartapost.com/opinion/2025/10/28/analysis-pertamina-corruption-case-expands-private-sector-dragged.html"
+                        }
+                    },
+                    {
+                        "start_date": { "month": "3", "day": "20", "year": "2025" },
+                        "text": {
+                            "headline": "Ratifikasi Revisi UU TNI",
+                            "text": "DPR meratifikasi revisi UU TNI, memungkinkan perwira militer menduduki jabatan sipil tanpa meninggalkan dinas."
+                        },
+                        "media": {
+                            "url": "https://www.hrw.org/sites/default/files/styles/opengraph/public/media_2025/03/202510asia_indonesia_President%20Prabowo%20Subianto_inauguration.jpg?h=19f14c2c&itok=jG_TAy2S",
+                            "caption": "Parlemen Indonesia meratifikasi UU TNI",
+                            "credit": "Human Rights Watch",
+                            "link": "https://www.hrw.org/news/2025/03/19/indonesia-proposed-military-law-amendments-threaten-rights"
+                        }
+                    },
+                    {
+                        "start_date": { "month": "3", "day": "29", "year": "2025" },
+                        "text": {
+                            "headline": "Hari Nyepi di Bali",
+                            "text": "Perayaan Hari Nyepi di Bali, hari keheningan di mana seluruh aktivitas dihentikan untuk refleksi spiritual."
+                        },
+                        "media": {
+                            "url": "https://imageio.forbes.com/specials-images/imageserve/67a7cfd017ec99b4fc88ad66/Ogoh-Ogoh-The-Balinese-Giant-puppet/1960x0.jpg?format=jpg&width=960",
+                            "caption": "Perayaan Nyepi di Bali",
+                            "credit": "Forbes",
+                            "link": "https://www.forbes.com/sites/sandramacgregor/2025/02/09/celebrate-nyepi-2025-at-balis-mandapa-a-ritz-carlton-reserve/"
+                        }
+                    },
+                    {
+                        "start_date": { "month": "4", "day": "7", "year": "2025" },
+                        "text": {
+                            "headline": "Finalisasi Tuntutan Protes",
+                            "text": "Suara Papua memfinalisasi tuntutan demonstran, termasuk penutupan Freeport dan restorasi hak rakyat."
+                        },
+                        "media": {
+                            "url": "https://www.hrw.org/sites/default/files/styles/opengraph/public/media_2024/12/202412asia_Indonesia_WR.jpeg?h=dcf479b3&itok=uvxQnHq8",
+                            "caption": "Tuntutan demonstran Indonesia",
+                            "credit": "Human Rights Watch",
+                            "link": "https://www.hrw.org/world-report/2025/country-chapters/indonesia"
+                        }
+                    },
+                    {
+                        "start_date": { "month": "4", "day": "9", "year": "2025" },
+                        "text": {
+                            "headline": "Serangan di Yahukimo, Papua",
+                            "text": "Serangan oleh Tentara Pembebasan Nasional Papua Barat di Yahukimo, Papua Tinggi, menewaskan 17 orang."
+                        },
+                        "media": {
+                            "url": "https://www.hrw.org/sites/default/files/styles/embed_xxl/public/media_2025/05/202505asia_papua%20new%20guinea_villagers_fleeing.jpeg?itok=suOps-bR",
+                            "caption": "Konflik di Yahukimo Papua",
+                            "credit": "Human Rights Watch",
+                            "link": "https://www.hrw.org/news/2025/05/29/indonesia-renewed-fighting-threatens-west-papua-civilians"
+                        }
+                    },
+                    {
+                        "start_date": { "month": "5", "day": "2", "year": "2025" },
+                        "text": {
+                            "headline": "Pemadaman Listrik di Bali",
+                            "text": "Pemadaman listrik besar-besaran melanda seluruh Pulau Bali akibat kerusakan kabel bawah laut."
+                        },
+                        "media": {
+                            "url": "https://img2.beritasatu.com/cache/jakartaglobe/480x310-3/2025/05/1746186344-719x390.webp",
+                            "caption": "Pemadaman listrik di Bali",
+                            "credit": "Jakarta Globe",
+                            "link": "https://jakartaglobe.id/lifestyle/bali-blackout-power-failure-linked-to-undersea-cable-fault-brings-island-to-a-halt"
+                        }
+                    },
+                    {
+                        "start_date": { "month": "5", "day": "20", "year": "2025" },
+                        "text": {
+                            "headline": "Penangkapan Narkoba Terbesar",
+                            "text": "Penangkapan narkoba terbesar dalam sejarah Indonesia, menyita dua ton metamfetamin dari kapal nelayan di Kepulauan Riau."
+                        },
+                        "media": {
+                            "url": "https://assets2.cbsnewsstatic.com/hub/i/r/2025/05/27/3ce46416-3231-4ebb-87ad-13850a400464/thumbnail/1200x630/88d0482b07f51a929c58c52a33ed1148/gettyimages-2216524543.jpg",
+                            "caption": "Penangkapan narkoba besar",
+                            "credit": "CBS News",
+                            "link": "https://www.cbsnews.com/news/indonesia-meth-fishing-boat-biggest-drug-bust/"
+                        }
+                    },
+                    {
+                        "start_date": { "month": "6", "day": "10", "year": "2025" },
+                        "text": {
+                            "headline": "Pencabutan Izin Tambang Raja Ampat",
+                            "text": "Pemerintah mencabut izin operasi empat perusahaan tambang di Raja Ampat karena pelanggaran regulasi."
+                        },
+                        "media": {
+                            "url": "https://cloudfront-us-east-2.images.arcpublishing.com/reuters/FX2WXLNS6ZJAHHPWJUU2UM7UAM.jpg",
+                            "caption": "Pencabutan izin tambang Raja Ampat",
+                            "credit": "Reuters",
+                            "link": "https://www.reuters.com/sustainability/indonesia-revokes-nickel-ore-mining-permits-raja-ampat-after-protest-2025-06-10/"
+                        }
+                    },
+                    {
+                        "start_date": { "month": "6", "day": "14", "year": "2025" },
+                        "text": {
+                            "headline": "Pembunuhan Turis Australia di Bali",
+                            "text": "Seorang warga Australia ditembak mati di dalam vila di Kabupaten Badung, Bali."
+                        },
+                        "media": {
+                            "url": "https://media.cnn.com/api/v1/images/stellar/prod/ap25165297432986.jpg?c=16x9&q=h_833,w_1480,c_fill",
+                            "caption": "Pembunuhan turis di Bali",
+                            "credit": "CNN",
+                            "link": "https://www.cnn.com/2025/06/14/asia/bali-australia-shooting-indonesia-intl"
+                        }
+                    },
+                    {
+                        "start_date": { "month": "7", "day": "3", "year": "2025" },
+                        "text": {
+                            "headline": "Tenggelamnya Ferry di Selat Bali",
+                            "text": "Kapal ferry KMP Tunu Pratama Jaya tenggelam di Selat Bali, menewaskan enam orang dan 29 hilang."
+                        },
+                        "media": {
+                            "url": "https://www.reuters.com/resizer/v2/W2TOOHYPYNJJ3PQX4AMMMQ5C6E.jpg?auth=42d9c145b024b98afb52ebe1dcdc68a2c6a270a4698aeae5f709e93c69d512c4&width=1080&quality=80",
+                            "caption": "Tenggelam ferry Selat Bali",
+                            "credit": "Reuters",
+                            "link": "https://www.reuters.com/world/asia-pacific/indonesia-resumes-search-30-missing-ferry-passengers-2025-07-04/"
+                        }
+                    },
+                    {
+                        "start_date": { "month": "7", "day": "18", "year": "2025" },
+                        "text": {
+                            "headline": "Hukuman Korupsi Thomas Lembong",
+                            "text": "Mantan Menteri Perdagangan Thomas Lembong divonis 4,5 tahun penjara atas korupsi impor gula."
+                        },
+                        "media": {
+                            "url": "https://img.jakpost.net/c/2025/07/18/2025_07_18_164636_1752843783._large.jpg",
+                            "caption": "Hukuman Thomas Lembong",
+                            "credit": "The Jakarta Post",
+                            "link": "https://www.thejakartapost.com/indonesia/2025/07/23/ex-ministers-graft-verdict-bad-precedent.html"
+                        }
+                    },
+                    {
+                        "start_date": { "month": "8", "day": "17", "year": "2025" },
+                        "text": {
+                            "headline": "Hari Kemerdekaan Indonesia",
+                            "text": "Perayaan Hari Kemerdekaan ke-80 Indonesia dengan parade dan acara nasional."
+                        },
+                        "media": {
+                            "url": "https://www.travelandtourworld.com/wp-content/uploads/2025/08/Indonesia-Independence-Day-850x581.jpg",
+                            "caption": "Perayaan Hari Kemerdekaan",
+                            "credit": "Travel And Tour World",
+                            "link": "https://www.travelandtourworld.com/news/article/indonesia-prepares-grand-celebrations-for-independence-day-with-new-cultural-performances-and-live-tourism-events/"
+                        }
+                    },
+                    {
+                        "start_date": { "month": "8", "day": "25", "year": "2025" },
+                        "text": {
+                            "headline": "Protes Agustus atas Tunjangan DPR",
+                            "text": "Dimulainya protes Agustus terhadap tunjangan DPR, memicu kerusuhan sipil besar."
+                        },
+                        "media": {
+                            "url": "https://upload.wikimedia.org/wikipedia/commons/2/26/Unjuk_rasa_di_Yogyakarta_pada_01_September_2025_I_%28cropped%29.jpg",
+                            "caption": "Protes Agustus 2025",
+                            "credit": "Wikipedia, the free encyclopedia",
+                            "link": "https://en.wikipedia.org/wiki/August_2025_Indonesian_protests"
+                        }
+                    },
+                    {
+                        "start_date": { "month": "9", "day": "1", "year": "2025" },
+                        "text": {
+                            "headline": "Kecelakaan Helikopter Airbus",
+                            "text": "Kecelakaan helikopter Airbus BK117 di Kabupaten Tanah Bumbu, Kalimantan Selatan, menewaskan delapan orang."
+                        },
+                        "media": {
+                            "url": "https://res.cloudinary.com/graham-media-group/image/upload/f_auto/q_auto/c_scale,w_640/v1/media/gmg/NH2RJPDXIVBRRMJRQG5RZJK3VY.jpg?_a=DAJHqpE+ZAAA",
+                            "caption": "Kecelakaan helikopter Airbus",
+                            "credit": "KSAT",
+                            "link": "https://www.ksat.com/news/world/2025/09/03/indonesian-rescuers-find-helicopter-crash-site-on-borneo-and-recover-1-body-so-far/"
+                        }
+                    },
+                    {
+                        "start_date": { "month": "9", "day": "3", "year": "2025" },
+                        "text": {
+                            "headline": "Diplomat Indonesia Ditembak di Peru",
+                            "text": "Diplomat Indonesia ditembak mati di Lima, Peru, diduga pembunuhan berencana."
+                        },
+                        "media": {
+                            "url": "https://www.aljazeera.com/wp-content/uploads/2025/09/2025-08-11T062339Z_853374719_RC2U4GAIVYZA_RTRMADP_3_INDONESIA-PERU-1756832348.jpg?resize=1920%2C1080",
+                            "caption": "Penembakan diplomat di Peru",
+                            "credit": "Al Jazeera",
+                            "link": "https://www.aljazeera.com/news/2025/9/2/peru-pledges-to-investigate-the-heinous-killing-of-indonesian-diplomat"
+                        }
+                    },
+                    {
+                        "start_date": { "month": "10", "day": "19", "year": "2025" },
+                        "text": {
+                            "headline": "Kejuaraan Dunia Senam Artistik FIG",
+                            "text": "Kejuaraan Dunia Senam Artistik FIG di Jakarta, pertama kali diadakan di Indonesia."
+                        },
+                        "media": {
+                            "url": "https://usagym.org/wp-content/uploads/2025worlds.png",
+                            "caption": "Kejuaraan Senam Dunia Jakarta",
+                            "credit": "USA Gymnastics",
+                            "link": "https://usagym.org/events/2025-artistic-gymnastics-world-championships/"
+                        }
+                    },
+                    {
+                        "start_date": { "month": "10", "day": "25", "year": "2025" },
+                        "text": {
+                            "headline": "Jakarta Running Festival",
+                            "text": "Jakarta Running Festival, menarik lebih dari 27.000 peserta dalam berbagai kategori lari."
+                        },
+                        "media": {
+                            "url": "https://i3.ytimg.com/vi/ZjFWK-LJNmo/maxresdefault.jpg",
+                            "caption": "Jakarta Running Festival",
+                            "credit": "World's Marathons",
+                            "link": "https://worldsmarathons.com/marathon/jakarta-running-festival"
+                        }
+                    },
+                    {
+                        "start_date": { "month": "11", "day": "5", "year": "2025" },
+                        "text": {
+                            "headline": "Pengumuman Pertumbuhan Ekonomi Q3",
+                            "text": "Pengumuman pertumbuhan ekonomi Indonesia Q3 2025 sebesar 5,04% y-o-y."
+                        },
+                        "media": {
+                            "url": "https://www.capitaleconomics.com/sites/default/files/charts/2025-11/87857-1.png",
+                            "caption": "Pengumuman pertumbuhan ekonomi",
+                            "credit": "Capital Economics",
+                            "link": "https://www.capitaleconomics.com/publications/asia-rapid-response/indonesia-gdp-q3-2025"
+                        }
+                    },
+                    {
+                        "start_date": { "month": "11", "day": "28", "year": "2025" },
+                        "text": {
+                            "headline": "Banjir di Sumatra",
+                            "text": "Banjir dan longsor di Sumatra Utara, menewaskan ratusan orang dan mengungsikan satu juta."
+                        },
+                        "media": {
+                            "url": "https://cloudfront-us-east-1.images.arcpublishing.com/opb/3JPSMMQHDVJ6PNY5J2IV7XWV5I.jpg",
+                            "caption": "Banjir Sumatra",
+                            "credit": "OPB",
+                            "link": "https://www.opb.org/article/2025/11/28/death-toll-from-floods-and-landslides-on-indonesia-s-sumatra-rises-to-164/"
+                        }
+                    },
+                    {
+                        "start_date": { "month": "12", "day": "1", "year": "2025" },
+                        "text": {
+                            "headline": "Siklon Senyar",
+                            "text": "Siklon Senyar menyebabkan banjir besar di Sumatra, dengan korban jiwa lebih dari 700."
+                        },
+                        "media": {
+                            "url": "https://upload.wikimedia.org/wikipedia/commons/d/da/2025_CIMSS_04B_Senyar_visible_infrared_satellite_loop.gif",
+                            "caption": "Siklon Senyar",
+                            "credit": "Wikipedia, the free encyclopedia",
+                            "link": "https://en.wikipedia.org/wiki/2025_Southeast_Asia_floods_and_landslides"
+                        }
+                    },
+                    {
+                        "start_date": { "month": "12", "day": "15", "year": "2025" },
+                        "text": {
+                            "headline": "Indonesia di SEA Games 2025",
+                            "text": "Indonesia berpartisipasi dalam SEA Games 2025 di Thailand, meraih medali perunggu di basket putra."
+                        },
+                        "media": {
+                            "url": "https://i.ytimg.com/vi/jeVIuXddjHs/hq720.jpg?sqp=-oaymwEhCK4FEIIDSFryq4qpAxMIARUAAAAAGAElAADIQj0AgKJD&rs=AOn4CLA7856S_PfFibT4l9ZQpbZrMr05pg",
+                            "caption": "Indonesia di SEA Games",
+                            "credit": "YouTube",
+                            "link": "https://www.youtube.com/watch?v=jeVIuXddjHs"
+                        }
+                    }
+                ]
+            };
+            
+            // Month names for display
+            const monthNames = [
+                "Januari", "Februari", "Maret", "April", "Mei", "Juni",
+                "Juli", "Agustus", "September", "Oktober", "November", "Desember"
+            ];
+            
+            // Sort events by date
+            data.events.sort((a, b) => {
+                const dateA = new Date(`${a.start_date.year}-${a.start_date.month}-${a.start_date.day}`);
+                const dateB = new Date(`${b.start_date.year}-${b.start_date.month}-${b.start_date.day}`);
+                return dateA - dateB;
+            });
+            
+            // Group events by month
+            const eventsByMonth = {};
+            data.events.forEach(event => {
+                const month = parseInt(event.start_date.month);
+                if (!eventsByMonth[month]) {
+                    eventsByMonth[month] = [];
+                }
+                eventsByMonth[month].push(event);
+            });
+            
+            // Build the timeline HTML
+            const timelineContent = document.getElementById('timeline-content');
+            let currentMonth = 0;
+            
+            // Loop through months from 1 to 12
+            for (let month = 1; month <= 12; month++) {
+                // Add month separator if there are events in this month
+                if (eventsByMonth[month]) {
+                    const monthSeparator = document.createElement('div');
+                    monthSeparator.className = 'month-separator';
+                    monthSeparator.innerHTML = `<div class="month-label">${monthNames[month-1]} 2025</div>`;
+                    timelineContent.appendChild(monthSeparator);
+                    
+                    // Add events for this month
+                    eventsByMonth[month].forEach((event, index) => {
+                        const eventElement = document.createElement('div');
+                        eventElement.className = 'timeline-event';
+                        
+                        const day = event.start_date.day;
+                        const monthNum = event.start_date.month;
+                        const year = event.start_date.year;
+                        
+                        eventElement.innerHTML = `
+                            <div class="event-content">
+                                <div class="event-date">
+                                    <div class="day">${day}</div>
+                                    <div class="month">${monthNames[monthNum-1].substring(0, 3).toUpperCase()}</div>
+                                </div>
+                                <h3 class="event-headline">${event.text.headline}</h3>
+                                <p class="event-description">${event.text.text}</p>
+                                ${event.media ? `
+                                    <div class="event-media">
+                                        <img src="${event.media.url}" alt="${event.media.caption}">
+                                        <div class="media-caption">${event.media.caption}</div>
+                                        <div class="media-credit">Credit: ${event.media.credit}</div>
+                                        <a href="${event.media.link}" target="_blank" class="media-link">Read more <i class="fas fa-external-link-alt"></i></a>
+                                    </div>
+                                ` : ''}
+                            </div>
+                            <div class="event-dot"></div>
+                        `;
+                        
+                        timelineContent.appendChild(eventElement);
+                    });
+                }
+            }
+            
+            // Hide loader when content is ready
+            setTimeout(() => {
+                document.getElementById('loader').classList.add('hidden');
+                
+                // Add animation to timeline events when they come into view
+                const observerOptions = {
+                    root: null,
+                    rootMargin: '0px',
+                    threshold: 0.1
+                };
+                
+                const observer = new IntersectionObserver((entries, observer) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            entry.target.classList.add('visible');
+                            observer.unobserve(entry.target);
+                        }
+                    });
+                }, observerOptions);
+                
+                document.querySelectorAll('.timeline-event').forEach(event => {
+                    observer.observe(event);
+                });
+            }, 1000);
+        });
+    </script>
+</body>
+</html>
